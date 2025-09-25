@@ -12,8 +12,8 @@ class Product(models.Model):
     Stores a single product's information.
     """
     product_name = models.CharField(max_length=200)
-    category_ID = models.ForeignKey(Category, on_delete=models.SET_DEFAULT, related_name="product")
-    price = models.DecimalField()
+    category_ID = models.ForeignKey(Category, on_delete=models.SET_DEFAULT, default=0, related_name="product")
+    price = models.DecimalField(max_digits=7, decimal_places=2)
     stock_quantity = models.IntegerField()
     description = models.TextField()
 
@@ -33,14 +33,14 @@ class Customer(models.Model):
 
 
 class Cart(models.Model):
-    total_price = models.DecimalField()
+    total_price = models.DecimalField(max_digits=7, decimal_places=2)
 
 
 class Cart_Item(models.Model):
-    product_id = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="staged product")
+    product_id = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="stagedproduct")
     cart_id = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name="cart")
     quantity = models.IntegerField()
-    price = models.DecimalField()
+    price = models.DecimalField(max_digits=7, decimal_places=2)
 
 
 class Review(models.Model):
