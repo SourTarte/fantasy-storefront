@@ -1,0 +1,9 @@
+asgiref
+bleach
+certifi
+cffi
+charset-normalizer
+cloudinary
+crispy-bootstrap5
+cryptography
+defusedxml
