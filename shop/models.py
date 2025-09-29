@@ -2,17 +2,47 @@ from django.db import models
 from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
 
-# Create your models here.
-class Category(models.Model):
-    name = models.CharField()
+STATUS = ((True, "Listed"), (False, "Unlisted"))
 
+# Create your models here.
 
 class Product(models.Model):
     """
     Stores a single product's information.
     """
-    product_name = models.CharField(max_length=200)
-    category_ID = models.ForeignKey(Category, on_delete=models.SET_DEFAULT, default=0, related_name="product")
+    CATEGORY_CHOICES = [
+    
+        (
+            'Melee Weapons', 
+            (
+                ('onehanded', 'One-Handed Melee'),
+                ('twohanded', 'Two-Handed Melee'),
+            ),
+        ),
+        (
+            'Ranged Weapons', 
+        (
+                ('bow', 'Bow'),
+                ('crossbow', 'Crossbow'),
+            ),
+        ),
+        (
+            'Armor', 
+            (
+                ('light', 'Light Armor'),
+                ('medium', 'Medium Armor'),
+            ),
+        ),
+        ('unknown', 'Unknown'),
+    ]
+
+    status = models.BooleanField(default=False)
+    product_name = models.CharField(max_length=200, default="newProduct")
+    subtitle = models.CharField(max_length=200, default="newProductDesc")
+    category = models.CharField(max_length=109,
+                  choices=CATEGORY_CHOICES,
+                  default="unknown")
+    main_image = CloudinaryField('image', default='placeholder')
     price = models.DecimalField(max_digits=7, decimal_places=2)
     stock_quantity = models.IntegerField()
     description = models.TextField()

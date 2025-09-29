@@ -1,0 +1,45 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Views</title>
+</head>
+
+<body>
+    
+    <h1>Product list</h1>
+    {% for product in object_list %}
+    <hr>
+    {% if "placeholder" in product.main_image.url %}
+    <img src="{% static 'images/default.jpg' %}" class="scale" alt="placeholder">
+    {% else %}
+    <img src="{{ product.main_image.url }}" class="scale" alt="{{ product.product_name }}" style="width:200px; height:200px;">
+    {% endif %}
+    <h2>{{product.product_name}}</h2>
+    <p class="description">{{product.description}}</p>
+    <h4>Price: {{product.price}}</h4>
+    {% endfor %}
+</body>
+
+</html>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+        descriptions = document.querySelectorAll("p.description");
+        for(let description of descriptions){
+            descriptionHTML = description.innerHTML;
+            description.innerHTML = FormatDescriptions(descriptionHTML);
+        }
+    });
+
+    function FormatDescriptions(description){
+        description = description.replaceAll("&gt;", ">");
+        description = description.replaceAll("&lt;", "<");
+        return description;
+    }
+</script>

@@ -9,7 +9,7 @@ class ProductAdmin(SummernoteModelAdmin):
     Lists fields for display in admin, fileds for search,
     field filters, fields to prepopulate and rich-text editor.
     """
-    list_display = ('product_name', 'price', 'stock_quantity', 'category_ID',)
+    list_display = ('product_name', 'price', 'stock_quantity', 'category',)
     search_fields = ['product_name', 'description']
     list_filter = ('stock_quantity', 'price',)
     summernote_fields = ('description',)

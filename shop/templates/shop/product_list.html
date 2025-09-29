@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="py-4 py-xl-5">
+    <div class="container h-100">
+        <div class="text-white bg-primary border rounded border-0 p-4 py-5">
+            <div class="row h-100">
+                <div class="col-md-10 col-xl-8 text-center d-flex d-sm-flex d-md-flex justify-content-center align-items-center mx-auto justify-content-md-start align-items-md-center justify-content-xl-center">
+                    <div>
+                        <h1 class="text-uppercase fw-bold text-white mb-3">If you can't buy it here, it ain't worth buying</h1>
+                        <p class="mb-4">Welcome to the Dragon's Hoard! The most popular bar/armoury on this side of the continent, because it's the <strong>only</strong>&nbsp;bar/armoury on the continent!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="container product-section">
+        <div class="row">
+            <div class="col">
+                <div class="row gx-1 gy-1 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 justify-content-evenly">
+                    {% for product in product_list %}
+                    <div class="col">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                {% if "placeholder" in product.main_image.url %}
+                                <img class="img-fluid bg-light-subtle border rounded border-light-subtle p-2" src="{% static 'images/placeholder.png' %}" alt="placeholder image">
+                                {% else %}
+                                <img class="img-fluid bg-light-subtle border rounded border-light-subtle p-2" src="{{ product.main_image }}" alt="{{ product.product_name }}">
+                                {% endif %}
+                                <h5 class="card-title my-1"><span style="color: rgb(33, 37, 41); background-color: rgb(248, 249, 250);">Ancient Palanite Blade</span></h5>
+                                <p class="card-text mb-3">Lightly Used Paladin's Blade</p>
+                                <h6 class="text-muted card-subtitle mb-0">250GP</h6>
+                                <div class="row">
+                                    <div class="col py-1"><button class="btn btn-warning text-nowrap w-100" type="button">Add to Cart</button></div>
+                                    <div class="col py-1"><button class="btn btn-warning btn-primary w-100" type="button">Details</button></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}
+
+{% block extras %}
+{% endblock extras %}
