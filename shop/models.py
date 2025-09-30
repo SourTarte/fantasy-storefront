@@ -24,6 +24,7 @@ class Product(models.Model):
         (
                 ('bow', 'Bow'),
                 ('crossbow', 'Crossbow'),
+                ('exotic', 'Exotic'),
             ),
         ),
         (

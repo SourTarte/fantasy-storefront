@@ -13,3 +13,4 @@ venv/ __
 pycache__/
 settings.json
 db.sqlite3
+ignored
