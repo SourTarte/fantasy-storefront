@@ -1,3 +1,4 @@
+import datetime
 from django.db import models
 from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
@@ -32,6 +33,7 @@ class Product(models.Model):
             (
                 ('light', 'Light Armor'),
                 ('medium', 'Medium Armor'),
+                ('heavy', 'Heavy Armor'),
             ),
         ),
         ('unknown', 'Unknown'),
@@ -46,6 +48,8 @@ class Product(models.Model):
     main_image = CloudinaryField('image', default='placeholder')
     price = models.DecimalField(max_digits=7, decimal_places=2)
     stock_quantity = models.IntegerField()
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
     description = models.TextField()
 
     def __str__(self):

@@ -1,0 +1,27 @@
+{% extends 'base.html' %} 
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-5">
+            {% if "placeholder" in product.main_image.url %}
+            <img src="{% static 'images/placeholder.webp' %}" class="scale" alt="placeholder">
+            {% else %}
+            <img src="{{ product.main_image.url }}" class="img-fluid bg-light-subtle border rounded border-light-subtle" alt="{{ product.product_name }}">
+            {% endif %}
+        </div>
+        <div class="col-sm-4">
+            <h1>{{ product.product_name }}</h1>
+            <p>{{ product.price }} Gold</p>
+            <div class="col py-1 mb-3"><button class="btn btn-outline-primary text-nowrap w-100" type="button">Add to Cart</button></div>
+            <h6>{{ product.subtitle }}</h6>
+            <p>{{ product.description | safe }}</p>
+        </div>
+        <div class="col-sm-1">
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
