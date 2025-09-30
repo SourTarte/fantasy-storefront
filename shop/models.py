@@ -57,7 +57,7 @@ class Product(models.Model):
         ordering = ["created_on"]
 
     def __str__(self):
-        return f"Product name: {self.product_name} is {self.price}"
+        return f"{self.product_name}"
 
 
 class Customer(models.Model):
@@ -83,8 +83,8 @@ class Cart_Item(models.Model):
 
 
 class Review(models.Model):
-    product_id = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="review")
-    username = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name="reviewer")
+    product_id = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="reviews")
+    username = models.ForeignKey(User, on_delete=models.CASCADE, related_name="reviewer")
     title = models.CharField(max_length=150)
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
@@ -94,4 +94,4 @@ class Review(models.Model):
         ordering = ["created_on"]
 
     def __str__(self):
-        return f"Review titled '{self.title}' written by {self.username}"
+        return f"{self.product_id} Review: '{self.title}' submitted by {self.username}"

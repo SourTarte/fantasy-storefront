@@ -18,6 +18,8 @@ class DebugList(generic.ListView):
 def product_detail(request, product_name, product_id):
     queryset = Product.objects.exclude(stock_quantity=0)
     product = get_object_or_404(queryset, product_name=product_name, id=product_id,)
+    reviews = product.reviews.all().order_by("-created_on")
+    review_count = product.reviews.all().count()
 
 
     return render(
@@ -25,5 +27,7 @@ def product_detail(request, product_name, product_id):
         "shop/product_page.html",
         {
             "product": product,
+            "reviews": reviews,
+            "review_count": review_count,
         }
     )

@@ -19,7 +19,41 @@
             <h6>{{ product.subtitle }}</h6>
             <p>{{ product.description | safe }}</p>
         </div>
-        <div class="col-sm-1">
+        <!-- Displaying count of comments -->
+        <div class="row">
+            <div class="col-12">
+            <strong class="text-secondary">
+                <i class="far fa-comments"></i> {{ comment_count }}
+            </strong>
+            </div>
+            <div class="col-12">
+            <hr>
+            </div>
+        </div>
+        <!-- Displaying Comments -->
+        <div class="row">
+            <div class="col-md-8 card mb-4  mt-3 ">
+            <h3>Reviews:</h3>
+            <div class="card-body">
+                <!-- We want a for loop inside the empty control tags
+                to iterate through each comment in comments -->
+                {% for review in reviews %}
+                <div class="p-2 comments">
+                    <h5>{{ review.title }}</h5>
+                    <p class="font-weight-bold">
+                        {{ review.username }}
+                        <span class="font-weight-normal">
+                        {{ review.created_on }}
+                        </span>
+                    </p>
+                    <div id="comment{{ review.id }}">
+                        {{ review.content | linebreaks }}
+                    </div>
+                </div>
+                <!-- Our for loop ends here -->
+                {% endfor %}
+            </div>
+            </div>
         </div>
     </div>
 </div>
