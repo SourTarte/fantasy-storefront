@@ -2,9 +2,11 @@ from django.contrib import admin
 from django_summernote.admin import SummernoteModelAdmin
 from .models import Product, Customer, Cart, Cart_Item, Review
 
+
 @admin.action(description="List Items")
 def list_items(productadmin, request, queryset):
     queryset.update(status=True)
+
 
 @admin.action(description="Delist Items")
 def delist_items(productadmin, request, queryset):

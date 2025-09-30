@@ -51,6 +51,10 @@ class Product(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     description = models.TextField()
+    review_average = models.DecimalField(max_digits=3, decimal_places=1, default=0.0)
+
+    class Meta:
+        ordering = ["created_on"]
 
     def __str__(self):
         return f"Product name: {self.product_name} is {self.price}"
@@ -85,6 +89,9 @@ class Review(models.Model):
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     review_score = models.IntegerField()
+
+    class Meta:
+        ordering = ["created_on"]
 
     def __str__(self):
         return f"Review titled '{self.title}' written by {self.username}"
