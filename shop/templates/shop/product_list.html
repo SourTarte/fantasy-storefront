@@ -30,7 +30,7 @@
                                 {% else %}
                                 <img src="{{ product.main_image.url }}" class="img-fluid bg-light-subtle border rounded border-light-subtle p-2" alt="{{ product.product_name }}">
                                 {% endif %}
-                                <a href="{% url 'product_detail' product.product_name product.id %}" class="product-link">
+                                <a href="{% url 'product_page' product.product_name product.id %}" class="product-link">
                                     <h5 class="card-title my-1"><span style="color: rgb(33, 37, 41); background-color: rgb(248, 249, 250);">{{ product.product_name }}</span></h5>
                                     <p class="card-text mb-3">{{ product.subtitle }}</p>
                                 </a>
