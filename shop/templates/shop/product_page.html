@@ -4,20 +4,10 @@
 
 {% block extraheaders %}
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-star-rating@4.0.7/css/star-rating.css" media="all" rel="stylesheet" type="text/css" />
  
 <!-- optionally if you need to use a theme, then include the theme file as mentioned below -->
 <link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-star-rating@4.0.7/themes/krajee-svg/theme.css" media="all" rel="stylesheet" type="text/css" />
- 
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-star-rating@4.0.7/js/star-rating.js" type="text/javascript"></script>
- 
-<!-- optionally if you need to use a theme, then include the theme file as mentioned below -->
-<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-star-rating@4.0.7/themes/krajee-svg/theme.js"></script>
- 
-<!-- optionally if you need translation for your language then include locale file as mentioned below (replace LANG.js with your locale specific file) -->
-<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-star-rating@4.0.7/js/locales/LANG.js"></script>
 
 {% endblock extraheaders %}
 
@@ -25,76 +15,76 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-sm-5">
+        <div class="col-7">
             {% if "placeholder" in product.main_image.url %}
             <img src="{% static 'images/placeholder.webp' %}" class="scale" alt="placeholder">
             {% else %}
             <img src="{{ product.main_image.url }}" class="img-fluid bg-light-subtle border rounded border-light-subtle" alt="{{ product.product_name }}">
             {% endif %}
         </div>
-        <div class="col-sm-4">
+        <div class="col">
             <h1>{{ product.product_name }}</h1>
             <p>{{ product.price }} Gold</p>
             <div class="col py-1 mb-3"><button class="btn btn-outline-primary text-nowrap w-100" type="button">Add to Cart</button></div>
             <h6>{{ product.subtitle }}</h6>
             <p>{{ product.description | safe }}</p>
         </div>
-        <!-- Displaying count of comments -->
-        <div class="row">
-            <div class="col-12">
-            <hr>
-            </div>
+    </div>
+    <!-- Displaying count of comments -->
+    <div class="row">
+        <div class="col-12">
+        <hr>
         </div>
-        <!-- Displaying Reviews -->
-        <div class="row">
-            <div class="col-md-8 card mb-4 mt-3 ">
-                <h3>Reviews:</h3>
-                <div class="card-body" id="reviews-container">
-                    <!-- We want a for loop inside the empty control tags to iterate through each review in reviews -->
-                    {% for review in reviews %}
-                    <div class="p-2 comments">
-                        <h5>{{ review.title }}</h5>
-                        <p class="font-weight-bold">
-                            {{ review.username }}
-                            <span class="font-weight-normal">
-                            {{ review.created_on }}
-                            </span>
-                            <input id="review-{{review.id}}" name="review-{{review.id}}" class="rating-loading display-review-score" value="{{ review.review_score }}" data-min="0" data-max="5" data-step="1" data-readonly="true">
-                        </p>
-                        <div id="comment{{ review.id }}">
-                            {{ review.content | linebreaks }}
-                        </div>
-                        {% if user.is_authenticated and review.username == user %}
-                        <button class="btn btn-delete" data-review_id="{{ review.id }}">Delete</button>
-                        {% endif %}
+    </div>
+    <!-- Displaying Reviews -->
+    <div class="row">
+        <div class="col-md-8 card mb-4 mt-3 ">
+            <h3>Reviews:</h3>
+            <div class="" id="reviews-container">
+                
+                <!-- We want a for loop inside the empty control tags to iterate through each review in reviews -->
+                {% for review in reviews %}
+                <div class="py-2 px-4 comments border rounded">
+                    <h5>{{ review.title }}</h5>
+                    <p class="font-weight-bold mb-1">
+                        {{ review.username }}
+                        <span class="font-weight-normal">
+                        {{ review.created_on }}
+                        </span>
+                    </p>
+                    <input id="review-{{review.id}}" name="review-{{review.id}}" class="rating-loading display-review-score" value="{{ review.review_score }}" data-min="0" data-max="5" data-step="1" data-readonly="true">
+                    <div id="comment{{ review.id }}" class="review-body">
+                        {{ review.content | linebreaks }}
                     </div>
-                    <!-- Our for loop ends here -->
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="col-md-4 card mb-4 mt-3 ">
-                <div class="card-body">
-                    {% if user.is_authenticated %}
-                    <h3>Leave a review:</h3>
-                    <p>Posting as: {{ user.username }}</p>
-                    <form id="reviewForm" method="post" style="margin-top: 1.3em;">
-                        {{ review_form | crispy }}
-
-                        <!-- Star Rating - to be implemented -->
-                        <!-- 
-                        <label for="rating-input" class="control-label">Rate This</label>
-                        <input id="rating-input-id" name="rating-input" required class="rating-loading">
-                        -->
-                        
-                        <button id="submitButton" type="submit" class="btn btn-signup btn-lg">Submit</button>
-                        {% csrf_token %}
-                    </form>
-                    {% else %}
-                    <p>Log in to leave a review</p>
+                    {% if user.is_authenticated and review.username == user %}
+                    <button class="btn btn-delete" data-review_id="{{ review.id }}">Delete</button>
                     {% endif %}
                 </div>
+                <!-- Our for loop ends here -->
+                {% endfor %}
+                
             </div>
         </div>
+        <div class="col-md-4 card mb-4 mt-3 ">
+            <div class="card-body">
+                {% if user.is_authenticated %}
+                <h3>Leave a review:</h3>
+                <p>Posting as: {{ user.username }}</p>
+                <form id="reviewForm" method="post" style="margin-top: 1.3em;">
+                    {{ review_form | crispy }}
+                    <!-- Star Rating -->
+                    <label for="rating-input" class="control-label">Rate This</label>
+                    <input id="rating-input" name="rating-input" required class="rating-loading" value="0" data-min="0" data-max="5" data-step="1">
+                    <!-- Submission Button -->
+                    <button id="submitButton" type="submit" class="btn btn-signup btn-lg">Submit</button>
+                    {% csrf_token %}
+                </form>
+                {% else %}
+                <p>Log in to leave a review</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
     </div>
 </div>
 <!-- Delete confirmation modal -->
@@ -124,7 +114,6 @@
     <!-- important mandatory libraries -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-star-rating@4.1.2/js/star-rating.min.js" type="text/javascript"></script>
-
     <!-- with v4.1.0 Krajee SVG theme is used as default (and must be loaded as below) - include any of the other theme JS files as mentioned below (and change the theme property of the plugin) -->
     <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-star-rating@4.1.2/themes/krajee-svg/theme.js"></script>
 
@@ -132,6 +121,9 @@
     <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-star-rating@4.1.2/js/locales/LANG.js"></script>
 
     <script>
+        addEventListener("DOMContentLoaded", (event) => { 
+            document.getElementById("div_id_review_score").hidden = true;
+        });
 
         let pluginOption = {
             showClear: false,
@@ -147,6 +139,12 @@
         });
 
         // Initialises the user review rating.
-        $("#rating-input-id").rating(pluginOption);
+        $("#rating-input").rating(pluginOption);
+
+        $('#rating-input').on('rating:change', function(event, value, caption) {
+            console.log(value);
+            reviewInputBox = document.getElementById("id_review_score");
+            reviewInputBox.value = value
+        });
     </script>
 {% endblock extras %}

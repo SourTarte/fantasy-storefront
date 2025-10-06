@@ -28,17 +28,23 @@
                                 {% if "placeholder" in product.main_image.url %}
                                 <img src="{% static 'images/placeholder.webp' %}" class="img-fluid bg-light-subtle border rounded border-light-subtle p-2" alt="placeholder">
                                 {% else %}
-                                <img src="{{ product.main_image.url }}" class="img-fluid bg-light-subtle border rounded border-light-subtle p-2" alt="{{ product.product_name }}">
+                                <img src="{{ product.main_image.url }}" class="product_img img-fluid border rounded p-2" alt="{{ product.product_name }}">
                                 {% endif %}
-                                <a href="{% url 'product_page' product.product_name product.id %}" class="product-link">
-                                    <h5 class="card-title my-1"><span style="color: rgb(33, 37, 41); background-color: rgb(248, 249, 250);">{{ product.product_name }}</span></h5>
+
+                                <div>
+                                    <h5 class="card-title my-1"><span>{{ product.product_name }}</span></h5>
                                     <p class="card-text mb-3">{{ product.subtitle }}</p>
-                                </a>
+                                </div>
 
                                 <div class="row mt-auto align-items-bottom">
                                     <h6 class="text-muted card-subtitle mb-0">{{ product.price }}GP</h6>
-                                    <div class="col py-1"><button class="btn btn-outline-primary text-nowrap w-100" type="button">Add to Cart</button></div>
-                                    <div class="col py-1"><button class="btn btn-outline-primary w-100" type="button">Details</button></div>
+                                    <div class="col py-1">
+                                        <a class="btn btn-outline-primary w-100" role="button" aria-current="page" href="">Add to Cart</a>
+                                    </div>
+                                    <div class="col py-1">
+                                        <a class="btn btn-outline-primary w-100" role="button" aria-current="page" href="{% url 'product_page' product.product_name product.id %}">Details</a>
+                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
