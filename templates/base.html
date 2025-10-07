@@ -10,6 +10,7 @@
 
 <head>
     <title>The Dragon's Hoard: For Blades and Beer</title>
+    <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
     <!-- Google Fonts CSS -->
@@ -18,7 +19,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;700&display=swap" rel="stylesheet">
 
     <!-- Font Awesome CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
@@ -35,14 +36,38 @@
 <body class="d-flex flex-column h-100">
 
     <!-- Navigation -->
-
+<!--
     <nav class="navbar navbar-expand-md py-3">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}">
                 <span>The Dragon's Hoard Barmoury</span>
             </a>
-            <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-2"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-2">
+                
+                <i class="fa fa-user" aria-hidden="true"></i>
+            </button>
             <div class="collapse navbar-collapse" id="navcol-2">
+                {% if user.is_authenticated %}
+                <ul class="navbar-nav ms-auto">
+                    
+                    <li class="nav-item">Your are logged in as: {{ user }}</li>
+                </ul><a class="btn btn-primary-outline px-2 py-1 ms-md-2 nav-link {% if request.path == logout_url %}active{% endif %}" role="button" aria-current="page" href="{% url 'account_logout' %}">Logout</a>
+                {% else %}
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="#">First Item</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Second Item</a></li>
+                </ul>
+                <a class="btn btn-primary-outline px-2 py-1 ms-md-2 nav-link {% if request.path == signup_url %}active{% endif %} border" role="button" aria-current="page" href="{% url 'account_signup' %}">Sign Up</a>
+                <a class="btn btn-primary-outline px-2 py-1 ms-md-2 nav-link {% if request.path == login_url %}active{% endif %} border" role="button" aria-current="page" href="{% url 'account_login' %}">Login</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+-->
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-md py-3" data-bs-theme="dark">
+        <div class="container"><a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}"><span><i class="fa-solid fa-dragon me-3"></i>The Dragon's Hoard</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-5"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navcol-5">
                 {% if user.is_authenticated %}
                 <ul class="navbar-nav ms-auto">
                     <!--
@@ -55,9 +80,10 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link active" href="#">First Item</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Second Item</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Third Item</a></li>
                 </ul>
-                <a class="btn btn-primary-outline px-2 py-1 ms-md-2 nav-link {% if request.path == signup_url %}active{% endif %} border" role="button" aria-current="page" href="{% url 'account_signup' %}">Sign Up</a>
-                <a class="btn btn-primary-outline px-2 py-1 ms-md-2 nav-link {% if request.path == login_url %}active{% endif %} border" role="button" aria-current="page" href="{% url 'account_login' %}">Login</a>
+                <a class="btn btn-primary px-2 py-1 ms-md-2 nav-link {% if request.path == signup_url %}active{% endif %}" role="button" aria-current="page" href="{% url 'account_signup' %}">Sign Up</a>
+                <a class="btn btn-primary px-2 py-1 ms-md-2 nav-link {% if request.path == login_url %}active{% endif %}" role="button" aria-current="page" href="{% url 'account_login' %}">Login</a>
                 {% endif %}
             </div>
         </div>
@@ -112,23 +138,9 @@
         </div>
     </footer>
 
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-    <script>
-        let footerElement = document.getElementById("footer-container");
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 
-        const bottomVisible = () =>
-        document.documentElement.clientHeight + window.scrollY >=
-        (document.documentElement.scrollHeight ||
-            document.documentElement.clientHeight);
-
-        addEventListener("scroll", (event) => { 
-            if(bottomVisible == true){
-                
-            } else {
-            }
-        })
-    </script>
-     {% block extras %}
+    {% block extras %}
     {% endblock %}
 </body>
 

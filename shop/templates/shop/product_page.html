@@ -15,19 +15,23 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-sm-7">
+        <div class="col-sm-7 ">
             {% if "placeholder" in product.main_image.url %}
-            <img src="{% static 'images/placeholder.webp' %}" class="scale" alt="placeholder">
+            <img src="{% static 'images/placeholder.webp' %}" class="scale product-page-image" alt="placeholder">
             {% else %}
-            <img src="{{ product.main_image.url }}" class="img-fluid bg-light-subtle border rounded border-light-subtle" alt="{{ product.product_name }}">
+            <img src="{{ product.main_image.url }}" class="img-fluid mt-3" alt="{{ product.product_name }}">
             {% endif %}
         </div>
-        <div class="col">
-            <h1>{{ product.product_name }}</h1>
-            <p>{{ product.price }} Gold</p>
-            <div class="col py-1 mb-3"><button class="btn btn-outline-primary text-nowrap w-100" type="button">Add to Cart</button></div>
-            <h6>{{ product.subtitle }}</h6>
-            <p>{{ product.description | safe }}</p>
+        <div class="col mt-3">
+            <div class="col py-1 mb-3">
+                <h1>{{ product.product_name }}</h1>
+                <p class="text-muted">{{ product.price }} Gold</p>
+                <button class="btn btn-outline-primary text-nowrap w-100" type="button">Add to Cart</button>
+            </div>
+            <div>
+                <h4 class="">{{ product.subtitle }}</h6>
+                <p>{{ product.description | safe }}</p>
+            </div>
         </div>
     </div>
     <!-- Displaying count of comments -->
@@ -122,29 +126,32 @@
 
     <script>
         addEventListener("DOMContentLoaded", (event) => { 
-            document.getElementById("div_id_review_score").hidden = true;
-        });
 
-        let pluginOption = {
-            showClear: false,
-            showCaption: false
-        }
+  
+  document.getElementById("div_id_review_score").hidden = true;
+});
 
-        // Gets all of the posted reviews on the page, and initialises the rating to show.
-        let reviews = document.getElementById("reviews-container").querySelectorAll(".display-review-score");
-        reviews.forEach((review) => {
-            console.log(review.parentNode);
-            let reviewNode = review.parentNode;
-            $(".display-review-score").rating(pluginOption);
-        });
+// Star rating plugin Config and Initialisation ----------------------------------------------------------//
+  let pluginOption = {
+    showClear: false,
+    showCaption: false
+  }
 
-        // Initialises the user review rating.
-        $("#rating-input").rating(pluginOption);
+  // Gets all of the posted reviews on the page, and initialises the rating to show.
+  let reviews = document.getElementById("reviews-container").querySelectorAll(".display-review-score");
+  reviews.forEach((review) => {
+    console.log(review.parentNode);
+    let reviewNode = review.parentNode;
+    $(".display-review-score").rating(pluginOption);
+  });
 
-        $('#rating-input').on('rating:change', function(event, value, caption) {
-            console.log(value);
-            reviewInputBox = document.getElementById("id_review_score");
-            reviewInputBox.value = value
-        });
+  // Initialises the user review rating.
+  $("#rating-input").rating(pluginOption);
+
+  $('#rating-input').on('rating:change', function(event, value, caption) {
+    console.log(value);
+    reviewInputBox = document.getElementById("id_review_score");
+    reviewInputBox.value = value
+  });
     </script>
 {% endblock extras %}

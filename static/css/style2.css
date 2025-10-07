@@ -43,68 +43,21 @@
     --shade4: #700101;
     --shade4-half: rgba(112, 1, 1, 0.5);
     --shade5: #3d0000;
+
+    --bs-body-font-size: 1.05rem;
     
     --bs-body-color: #0c0c0c;
     --bs-body-color-rgb: rgb(12, 12, 12);
     --bs-body-bg: #f4efe9;
     --bs-body-bg-rgb: rgb(244, 239, 233);
-    /*
-    --bs-secondary-color
-    --bs-secondary-color-rgb
-    --bs-secondary-bg
-    --bs-secondary-bg-rgb
+}
 
-    --bs-tertiary-color
-    --bs-tertiary-color-rgb
-    --bs-tertiary-bg
-    --bs-tertiary-bg-rgb
+.navbar{
+    background-color: #682c2c;
+}
 
-    --bs-emphasis-color
-    --bs-emphasis-color-rgb
-
-    --bs-border-color
-    --bs-border-color-rgb
-    /*
-    --bs-primary-bg-subtle
-    --bs-primary-border-subtle
-    --bs-primary-text-emphasis
-    
-    --bs-success
-    --bs-success-rgb
-    --bs-success-bg-subtle
-    --bs-success-border-subtle
-    --bs-success-text-emphasis
-
-    --bs-danger
-    --bs-danger-rgb
-    --bs-danger-bg-subtle
-    --bs-danger-border-subtle
-    --bs-danger-text-emphasis
-
-    --bs-warning
-    --bs-warning-rgb
-    --bs-warning-bg-subtle
-    --bs-warning-border-subtle
-    --bs-warning-text-emphasis
-
-    --bs-info
-    --bs-info-rgb
-    --bs-info-bg-subtle
-    --bs-info-border-subtle
-    --bs-info-text-emphasis
-
-    --bs-light
-    --bs-light-rgb
-    --bs-light-bg-subtle
-    --bs-light-border-subtle
-    --bs-light-text-emphasis
-
-    --bs-dark
-    --bs-dark-rgb
-    --bs-dark-bg-subtle
-    --bs-dark-border-subtle
-    --bs-dark-text-emphasis
-    */
+.card-text{
+    --bs-body-font-size: 1rem !important;
 }
 
 .review-body p{
@@ -114,10 +67,6 @@
 a{
     color: var(--bs-body-color);
     text-decoration: none;
-}
-
-.bg {
-    background-image: url("images/bgr.jpeg");
 }
 
 body{
@@ -135,6 +84,11 @@ body{
 footer {
     margin-top: auto;
 }
+
+img {
+    background-color: #e4e1de;
+}
+
 
 
 /*------------------------------------
