@@ -4,6 +4,8 @@
 {% url 'account_login' as login_url %}
 {% url 'account_signup' as signup_url %}
 {% url 'account_logout' as logout_url %}
+{% load i18n %}
+{% load account socialaccount %}
 
 <!DOCTYPE html>
 <html class="h-100" lang="en">
@@ -36,46 +38,26 @@
 <body class="d-flex flex-column h-100">
 
     <!-- Navigation -->
-<!--
-    <nav class="navbar navbar-expand-md py-3">
+    <nav class="navbar navbar-expand-md py-3" data-bs-theme="dark">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}">
-                <span>The Dragon's Hoard Barmoury</span>
+                <span>
+                    <i class="fa-solid fa-dragon me-3"></i>The Dragon's Hoard
+                </span>
             </a>
-            <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-2">
-                
-                <i class="fa fa-user" aria-hidden="true"></i>
+
+            <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-5"><span class="visually-hidden">Toggle navigation</span>
+                <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navcol-2">
-                {% if user.is_authenticated %}
-                <ul class="navbar-nav ms-auto">
-                    
-                    <li class="nav-item">Your are logged in as: {{ user }}</li>
-                </ul><a class="btn btn-primary-outline px-2 py-1 ms-md-2 nav-link {% if request.path == logout_url %}active{% endif %}" role="button" aria-current="page" href="{% url 'account_logout' %}">Logout</a>
-                {% else %}
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="#">First Item</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Second Item</a></li>
-                </ul>
-                <a class="btn btn-primary-outline px-2 py-1 ms-md-2 nav-link {% if request.path == signup_url %}active{% endif %} border" role="button" aria-current="page" href="{% url 'account_signup' %}">Sign Up</a>
-                <a class="btn btn-primary-outline px-2 py-1 ms-md-2 nav-link {% if request.path == login_url %}active{% endif %} border" role="button" aria-current="page" href="{% url 'account_login' %}">Login</a>
-                {% endif %}
-            </div>
-        </div>
-    </nav>
--->
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-md py-3" data-bs-theme="dark">
-        <div class="container"><a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}"><span><i class="fa-solid fa-dragon me-3"></i>The Dragon's Hoard</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-5"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            
             <div class="collapse navbar-collapse" id="navcol-5">
                 {% if user.is_authenticated %}
                 <ul class="navbar-nav ms-auto">
-                    <!--
-                        <li class="nav-item"><a class="nav-link active" href="#">First Item</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Second Item</a></li>
-                    -->
-                    <li class="nav-item">Your are logged in as: {{ user }}</li>
-                </ul><a class="btn btn-primary-outline px-2 py-1 ms-md-2 nav-link {% if request.path == logout_url %}active{% endif %}" role="button" aria-current="page" href="{% url 'account_logout' %}">Logout</a>
+                    <li class="nav-item text-white">Lovely to see you, {{ user }}</li>
+                </ul>
+                <button type="button" class="btn btn-primary ms-4" data-bs-toggle="modal" data-bs-target="#logoutModal">
+                    Logout
+                </button>
                 {% else %}
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link active" href="#">First Item</a></li>
@@ -88,6 +70,31 @@
             </div>
         </div>
     </nav>
+
+    <!-- Logout Modal -->
+    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="logoutModalLabel">Modal title</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            Are you sure you want to sign out?
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <form method="post" action="{% url 'account_logout' %}">
+                {% csrf_token %}
+                {% if redirect_field_value %}
+                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                {% endif %}
+                <button class="btn btn-primary right" type="submit">{% trans 'Sign Out' %}</button>
+            </form>
+        </div>
+        </div>
+    </div>
+    </div>
     
     <!-- displaying Django messages -->
     <div class="container">

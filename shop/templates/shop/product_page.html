@@ -14,12 +14,12 @@
 {% block content %}
 
 <div class="container">
-    <div class="row">
+    <div class="row mb-1">
         <div class="col-sm-7 ">
             {% if "placeholder" in product.main_image.url %}
             <img src="{% static 'images/placeholder.webp' %}" class="scale product-page-image" alt="placeholder">
             {% else %}
-            <img src="{{ product.main_image.url }}" class="img-fluid mt-3" alt="{{ product.product_name }}">
+            <img src="{{ product.main_image.url }}" class="img-fluid mt-3 rounded-3" alt="{{ product.product_name }}">
             {% endif %}
         </div>
         <div class="col mt-3">
@@ -34,61 +34,58 @@
             </div>
         </div>
     </div>
-    <!-- Displaying count of comments -->
-    <div class="row">
-        <div class="col-12">
-        <hr>
-        </div>
-    </div>
     <!-- Displaying Reviews -->
-    <div class="row">
-        <div class="col-md-8 card mb-4 mt-3 ">
-            <h3>Reviews:</h3>
-            <div class="" id="reviews-container">
+    <div class="container">
+        <div class="row gx-1">
+            <div class="col-md-8 card mb-4 mt-3 ">
                 
-                <!-- We want a for loop inside the empty control tags to iterate through each review in reviews -->
-                {% for review in reviews %}
-                <div class="py-2 px-4 comments border rounded">
-                    <h5>{{ review.title }}</h5>
-                    <p class="font-weight-bold mb-1">
-                        {{ review.username }}
-                        <span class="font-weight-normal">
-                        {{ review.created_on }}
-                        </span>
-                    </p>
-                    <input id="review-{{review.id}}" name="review-{{review.id}}" class="rating-loading display-review-score" value="{{ review.review_score }}" data-min="0" data-max="5" data-step="1" data-readonly="true">
-                    <div id="comment{{ review.id }}" class="review-body">
-                        {{ review.content | linebreaks }}
+                <div class="container" id="reviews-container">
+                    <h3 class="mt-3">Reviews:</h3>
+                    <!-- We want a for loop inside the empty control tags to iterate through each review in reviews -->
+                    {% for review in reviews %}
+                    <div class="py-2 px-4 comments rounded">
+                        <hr>
+                        <h5>{{ review.title }}</h5>
+                        <p class="font-weight-bold mb-1">
+                            {{ review.username }}
+                            <span class="font-weight-normal">
+                            {{ review.created_on }}
+                            </span>
+                        </p>
+                        <input id="review-{{review.id}}" name="review-{{review.id}}" class="rating-loading display-review-score" value="{{ review.review_score }}" data-min="0" data-max="5" data-step="1" data-readonly="true">
+                        <div id="comment{{ review.id }}" class="review-body">
+                            {{ review.content | linebreaks }}
+                        </div>
+                        {% if user.is_authenticated and review.username == user %}
+                        <button class="btn btn-delete" data-review_id="{{ review.id }}">Delete</button>
+                        {% endif %}
+                        
                     </div>
-                    {% if user.is_authenticated and review.username == user %}
-                    <button class="btn btn-delete" data-review_id="{{ review.id }}">Delete</button>
+                    <!-- Our for loop ends here -->
+                    {% endfor %}
+                    
+                </div>
+            </div>
+            <div class="col-md-4 card mb-4 mt-3 ">
+                <div class="card-body">
+                    {% if user.is_authenticated %}
+                    <h3>Leave a review:</h3>
+                    <form id="reviewForm" method="post" style="margin-top: 1.3em;">
+                        {{ review_form | crispy }}
+                        <!-- Star Rating -->
+                        <label for="rating-input" class="control-label">Rate This Item*</label>
+                        <input id="rating-input" name="rating-input" required class="rating-loading" value="0" data-min="0" data-max="5" data-step="1">
+                        <!-- Submission Button -->
+                        <button id="submitButton" type="submit" class="btn btn-signup btn-lg">Submit</button>
+                        {% csrf_token %}
+                    </form>
+                    {% else %}
+                    <p>Log in to leave a review</p>
                     {% endif %}
                 </div>
-                <!-- Our for loop ends here -->
-                {% endfor %}
-                
             </div>
         </div>
-        <div class="col-md-4 card mb-4 mt-3 ">
-            <div class="card-body">
-                {% if user.is_authenticated %}
-                <h3>Leave a review:</h3>
-                <p>Posting as: {{ user.username }}</p>
-                <form id="reviewForm" method="post" style="margin-top: 1.3em;">
-                    {{ review_form | crispy }}
-                    <!-- Star Rating -->
-                    <label for="rating-input" class="control-label">Rate This</label>
-                    <input id="rating-input" name="rating-input" required class="rating-loading" value="0" data-min="0" data-max="5" data-step="1">
-                    <!-- Submission Button -->
-                    <button id="submitButton" type="submit" class="btn btn-signup btn-lg">Submit</button>
-                    {% csrf_token %}
-                </form>
-                {% else %}
-                <p>Log in to leave a review</p>
-                {% endif %}
-            </div>
-        </div>
-    </div>
+    
     </div>
 </div>
 <!-- Delete confirmation modal -->
