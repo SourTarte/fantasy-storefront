@@ -27,5 +27,4 @@ class ProductAdmin(SummernoteModelAdmin):
 
 
 # Register your models here.
-myModels = [Customer, Cart, Cart_Item, Review]
-admin.site.register(myModels)
+admin.site.register(Review)
