@@ -1,9 +1,9 @@
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.test import TestCase
-from .models import Product
+from ..shop.models import Product
 
-class TestBlogViews(TestCase):
+class TestShopViews(TestCase):
 
     def setUp(self):
         self.user = User.objects.create_superuser(

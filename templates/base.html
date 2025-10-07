@@ -55,7 +55,11 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item text-white">Lovely to see you, {{ user }}</li>
                 </ul>
-                <button type="button" class="btn btn-primary ms-4" data-bs-toggle="modal" data-bs-target="#logoutModal">
+                
+                <button type="button" class="btn btn-primary ms-4" data-bs-toggle="modal" data-bs-target="#cartModal">
+                    My Horsecart
+                </button>
+                <button type="button" class="btn btn-primary ms-1" data-bs-toggle="modal" data-bs-target="#logoutModal">
                     Logout
                 </button>
                 {% else %}
@@ -73,27 +77,44 @@
 
     <!-- Logout Modal -->
     <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h1 class="modal-title fs-5" id="logoutModalLabel">Modal title</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            Are you sure you want to sign out?
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <form method="post" action="{% url 'account_logout' %}">
-                {% csrf_token %}
-                {% if redirect_field_value %}
-                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-                {% endif %}
-                <button class="btn btn-primary right" type="submit">{% trans 'Sign Out' %}</button>
-            </form>
-        </div>
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="logoutModalLabel">Log Out?</h1>
+                
+            </div>
+            <div class="modal-body">
+                Are you sure you want to sign out?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <form method="post" action="{% url 'account_logout' %}">
+                    {% csrf_token %}
+                    {% if redirect_field_value %}
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                    {% endif %}
+                    <button class="btn btn-primary right" type="submit">{% trans 'Sign Out' %}</button>
+                </form>
+            </div>
+            </div>
         </div>
     </div>
+
+    <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="logoutModalLabel">Shopping Cart</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                This Feature is Still Under Development
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+            </div>
+        </div>
     </div>
     
     <!-- displaying Django messages -->
@@ -121,6 +142,9 @@
     <!-- Footer -->
     <footer id="footer-container" class="text-center bg-dark">
         <div class="container text-white py-2">
+            
+            <h6>The Dragon's Hoard<br>5 Market Street, Baldur's Gate, Faerun</h6>
+            
             <ul class="list-inline">
                 <li class="list-inline-item me-4"><a class="link-light" href="#">Web design</a></li>
                 <li class="list-inline-item me-4"><a class="link-light" href="#">Development</a></li>
@@ -139,8 +163,8 @@
             </ul>
             <p class="text-muted mb-0">
                 {% block copyright %}
-                Made by Dion McMillan
                 {% endblock copyright %}
+                2025 © Dion McMillan
             </p>
         </div>
     </footer>

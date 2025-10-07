@@ -52,6 +52,8 @@
     --bs-body-bg-rgb: rgb(244, 239, 233);
 }
 
+.text-muted{--bs-secondary-color: #acb5bd;}
+
 .navbar{
     background-color: #212529;
 }
