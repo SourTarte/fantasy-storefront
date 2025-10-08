@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django_summernote.admin import SummernoteModelAdmin
-from .models import Product, Customer, Cart, Cart_Item, Review
+from .models import Product, Cart_Item, Review
 
 
 @admin.action(description="List Items")
@@ -28,3 +28,4 @@ class ProductAdmin(SummernoteModelAdmin):
 
 # Register your models here.
 admin.site.register(Review)
+admin.site.register(Cart_Item)

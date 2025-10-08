@@ -42,7 +42,7 @@ class Migration(migrations.Migration):
             name='Product',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('product_name', models.CharField(default='newProduct', max_length=200)),
+                ('name', models.CharField(default='newProduct', max_length=200)),
                 ('subtitle', models.CharField(default='newProductDesc', max_length=200)),
                 ('main_image', cloudinary.models.CloudinaryField(default='placeholder', max_length=255, verbose_name='image')),
                 ('price', models.DecimalField(decimal_places=2, max_digits=7)),

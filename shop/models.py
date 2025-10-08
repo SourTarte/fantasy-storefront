@@ -57,7 +57,7 @@ class Product(models.Model):
         ordering = ["created_on"]
 
     def __str__(self):
-        return f"{self.product_name}"
+        return f"{self.name}"
 
 
 class Customer(models.Model):
@@ -76,10 +76,13 @@ class Cart(models.Model):
 
 
 class Cart_Item(models.Model):
-    product_id = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="stagedproduct")
-    cart_id = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name="cart")
-    quantity = models.IntegerField()
-    price = models.DecimalField(max_digits=7, decimal_places=2)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="stagedproduct")
+    quantity = models.PositiveIntegerField(default=0)
+    user = models.ForeignKey(User, default=None, on_delete=models.CASCADE)
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.quantity} x {self.product.product_name}'
 
 
 class Review(models.Model):

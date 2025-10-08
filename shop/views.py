@@ -1,8 +1,9 @@
-from django.shortcuts import render, get_object_or_404, reverse
+from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse
 from django.views import generic
 from django.contrib import messages
 from django.http import HttpResponseRedirect
-from .models import Product, Review
+from .models import Product, Review, Cart_Item
 from .forms import ReviewForm
 
 
@@ -47,7 +48,9 @@ def product_page(request, product_name, product_id):
         }
     )
 
-def review_delete(request, product_name, product_id, review_id):
+# ------------------ Review Views ------------------ #
+
+def review_delete(request, name, product_id, review_id):
     """
     Delete an individual review.
 
@@ -59,7 +62,7 @@ def review_delete(request, product_name, product_id, review_id):
         A single review related to the product.
     """
     queryset = Product.objects.exclude(stock_quantity=0)
-    product = get_object_or_404(queryset, product_name=product_name, id=product_id,)
+    product = get_object_or_404(queryset, name=name, id=product_id,)
     review = get_object_or_404(Review, pk=review_id)
 
     if review.username == request.user:
@@ -69,4 +72,30 @@ def review_delete(request, product_name, product_id, review_id):
         messages.add_message(request, messages.ERROR,
                              'You can only delete your own reviews!')
         
-    return HttpResponseRedirect(reverse('product_page', args=[product_name, product_id]))
+    return HttpResponseRedirect(reverse('product_page', args=[name, product_id]))
+
+# ------------------ Cart Views ------------------ #
+
+def view_cart(request):
+    cart_items = Cart_Item.objects.filter(user=request.user)
+    total_price = sum(item.product.price * item.quantity for item in cart_items)
+    return render(request, 'shop/cart.html', {'cart_items': cart_items, 'total_price': total_price})
+
+def add_to_cart(request, product):
+    product = Product.objects.get(id=product)
+    cart_item, created = Cart_Item.objects.get_or_create(product=product, user=request.user)
+    cart_item.quantity += 1
+    cart_item.save()
+    return redirect('view_cart')
+
+def remove_from_cart(request, item_id):
+    cart_item = Cart_Item.objects.get(id=item_id)
+    cart_item.delete()
+    return redirect('view_cart')
+
+def clear_cart(request):
+    cart_items = Cart_Item.objects.filter(user=request.user)
+    for item in cart_items:
+        item.delete()
+    return redirect('view_cart')
+

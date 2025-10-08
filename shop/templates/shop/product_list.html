@@ -34,14 +34,14 @@
                                 <div>
                                     <a href="{% url 'product_page' product.product_name product.id %}">
                                         <h5 class="card-title my-1"><span>{{ product.product_name }}</span></h5>
-                                        <p class="card-text mb-3">{{ product.subtitle }}</p>
+                                        <p class="card-text">{{ product.subtitle }}</p>
                                     </a>
                                 </div>
-
-                                <div class="row mt-auto align-items-bottom">
-                                    <h6 class="text-muted card-subtitle mb-0">{{ product.price }}GP</h6>
+                                <hr>
+                                <div class="row align-items-bottom">
+                                    <h6 class="card-subtitle">{{ product.price }}GP</h6>
                                     <div class="col py-1">
-                                        <a class="btn btn-outline-primary w-100" role="button" aria-current="page" href="">Add to Cart</a>
+                                        <a class="btn btn-outline-primary w-100" role="button" aria-current="page" href="{% url 'add_to_cart' product.id %}">Add to Cart</a>
                                     </div>
                                     <div class="col py-1">
                                         <a class="btn btn-outline-primary w-100" role="button" aria-current="page" href="{% url 'product_page' product.product_name product.id %}">Details</a>
