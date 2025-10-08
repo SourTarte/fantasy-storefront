@@ -40,20 +40,24 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-md py-3" data-bs-theme="dark">
         <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="{% url 'product_list' %}">
+            <a class="navbar-brand d-flex" href="{% url 'product_list' %}">
                 <span>
                     <i class="fa-solid fa-dragon me-3"></i>The Dragon's Hoard
                 </span>
             </a>
-
-            <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-5"><span class="visually-hidden">Toggle navigation</span>
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <!--
+                <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-5"><span class="visually-hidden">Toggle navigation</span>
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            -->
+            <a data-bs-toggle="collapse" class="navbar-toggler text-white border-0" data-bs-target="#navcol-5">
+                {{user}} <i class="fa-solid fa-caret-down"></i>
+            </a>
             
-            <div class="collapse navbar-collapse" id="navcol-5">
+            <div class="collapse navbar-collapse justify-content-end" id="navcol-5">
                 {% if user.is_authenticated %}
-                <ul class="navbar-nav mt-4">
-                    <li class="nav-item text-white">Lovely to see you, {{ user }}</li>
+                <ul class="navbar-nav">
+                    <li id="welcome-back" class="nav-item text-white my-auto me-5">Lovely to see you, {{ user }}</li>
                     <li class="nav-item"><a class="btn btn-primary m-1 nav-link {% if request.path == signup_url %}active{% endif %}" role="button" aria-current="page" href="{% url 'view_cart' %}">My Horsecart</a></li>
                     <li class="nav-item"><a class="btn btn-primary m-1 nav-link" data-bs-toggle="modal" data-bs-target="#logoutModal">Logout</a></li>
                 </ul>
@@ -62,7 +66,7 @@
                     My Horsecart
                 </button>-->
                 {% else %}
-                <ul class="navbar-nav mt-4">
+                <ul class="navbar-nav mt-4 align-items-center">
                     <li class="nav-item"><a class="btn btn-primary m-1 nav-link {% if request.path == signup_url %}active{% endif %}" role="button" aria-current="page" href="{% url 'account_signup' %}">Sign Up</a></li>
                     <li class="nav-item"><a class="btn btn-primary m-1 nav-link {% if request.path == login_url %}active{% endif %}" role="button" aria-current="page" href="{% url 'account_login' %}">Login</a></li>
                 </ul>

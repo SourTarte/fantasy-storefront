@@ -92,6 +92,13 @@ img {
 }
 
 
+@media (max-width: 768px) {
+    #welcome-back{
+        display: none;
+    }
+}
+
+
 
 /*------------------------------------
 - COLOR primary
