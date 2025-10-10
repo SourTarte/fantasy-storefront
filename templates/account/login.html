@@ -14,7 +14,7 @@
 
             <p>{% blocktrans %}Welcome back to the Dragon's Hoard! To leave a review, please log in. If
                 you
-                have not created an account yet, feel free to <a class="link" href="{{ signup_url }}">sign up</a>
+                have not created an account yet, feel free to <a class="link fw-bold text-decoration-underline" href="{{ signup_url }}">sign up</a>
                 and get stuck in.{% endblocktrans %}</p>
         </div>
     </div>
@@ -26,7 +26,7 @@
                 {% if redirect_field_value %}
                 <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
                 {% endif %}
-                <button class="btn btn-signup right" type="submit">{% trans "Sign In" %}</button>
+                <button class="btn btn-primary right" type="submit">{% trans "Sign In" %}</button>
             </form>
         </div>
     </div>
