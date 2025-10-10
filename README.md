@@ -110,9 +110,9 @@ class Cart_Item(models.Model):
 ## 🧪 Testing
 - Django `TestCase` used to test models, views, and forms.  
 - HTML Validation using W3's HTML Validation Tool
-![Screenshot of W3's HTML Validator, showing only minor warnings.](https://github.com/SourTarte/fantasy-storefront/tree/main/readme-imgs/html-validation.png)
+![Screenshot of W3's HTML Validator, showing only minor warnings.](/readme-imgs/html-validation.png)
 - Browser testing via Chrome DevTools. 
-![Screenshot of the deployed site with Chrome's Lighthouse tool open.](https://github.com/SourTarte/fantasy-storefront/tree/main/readme-imgs/lighthouse-test.png)
+![Screenshot of the deployed site with Chrome's Lighthouse tool open.](/readme-imgs/lighthouse-test.png)
 	- Best Practices' low score was mostly attributed to Cloudinary's lack of HTTPS usage.
 - Peer testing helped identify issues such as adding items to the cart while logged out (which previously caused 500 errors).  
 - Copilot generated initial test scaffolds, later manually corrected.  
@@ -139,10 +139,10 @@ class Cart_Item(models.Model):
 
 ## 🚀 Agile Planning & UX Design
 - Planning and documentation tracked in Obsidian with Kanban plugin.
-![Screenshot of Obsidian Markdown Editor, showing a Kanban board within it.](https://github.com/SourTarte/fantasy-storefront/tree/main/readme-imgs/kanban-board.png)
+![Screenshot of Obsidian Markdown Editor, showing a Kanban board within it.](/readme-imgs/kanban-board.png)
 
 - Wireframes created in Adobe Illustrator with inspiration from LARPing and medieval replica websites.  
-![Wireframe of a web layout as shown on a mobile layout.](https://github.com/SourTarte/fantasy-storefront/tree/main/readme-imgs/wireframe-mobile.webp)
+![Wireframe of a web layout as shown on a mobile layout.](/readme-imgs/wireframe-mobile.webp)
 
 - Responsive and modern UI design with Bootstrap 5, Flexbox, and semantic HTML.  
 - Accessibility checks for colour contrast, labels, and navigation.  
