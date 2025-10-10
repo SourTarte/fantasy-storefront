@@ -19,7 +19,7 @@
             {% if "placeholder" in product.main_image.url %}
             <img src="{% static 'images/placeholder.webp' %}" class="scale product-page-image" alt="placeholder">
             {% else %}
-            <img src="{{ product.main_image.url }}" class="img-fluid mt-3 rounded-3" alt="{{ product.product_name }}">
+            <img src="{{ product.main_image.url }}" class="img-fluid mt-3 rounded-3" alt="{{ product.product_name }}" fetchpriority="high">
             {% endif %}
         </div>
         <div class="col mt-3">

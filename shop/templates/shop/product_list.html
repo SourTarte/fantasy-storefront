@@ -28,7 +28,7 @@
                                 {% if "placeholder" in product.main_image.url %}
                                 <img src="{% static 'images/placeholder.webp' %}" class="img-fluid bg-light-subtle border rounded border-light-subtle p-2" alt="placeholder">
                                 {% else %}
-                                <img src="{{ product.main_image.url }}" class="product_img img-fluid border rounded p-2" alt="{{ product.product_name }}">
+                                <img src="{{ product.main_image.url }}" class="product_img img-fluid border rounded p-2" alt="{{ product.product_name }}" fetchpriority="high">
                                 {% endif %}
 
                                 <div class="mb-3">
