@@ -161,17 +161,17 @@ class Cart_Item(models.Model):
 ## 🎨 3D Model & Image Credits
 Any usage of this project must include the following attributions, as they are licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/):
 
-- Image of "Fantasy_sword_25_with_scabbard" ([link](https://skfb.ly/oMqTn)) by Nicu_Tepes_Vulpe  
-- Image of "Fantasy_sword_11" ([link](https://skfb.ly/oLsUV)) by Nicu_Tepes_Vulpe  
-- Image of "Fantasy 2 handed Sword" ([link](https://skfb.ly/L8oW)) by xrenou  
-- Image of "Fantasy Axe (optimised for games)" ([link](https://skfb.ly/oxMxD)) by Ashraf Bouhadida  
-- Image of "Drakefire Pistol" ([link](https://skfb.ly/6xCGp)) by Teliri  
-- Image of "Fantasy Longsword" ([link](https://skfb.ly/ontRY)) by Faber  
-- Image of "Fantasy Axe" ([link](https://skfb.ly/oQQ7R)) by Mikołaj Michalak  
-- Image of "Bow and Arrow" ([link](https://skfb.ly/6YKo6)) by Amatsukast  
-- Image of "Medieval crosbow" ([link](https://skfb.ly/6SxQx)) by Cyril43  
-- Image of "Free Female Fantasy Armor - 2" ([link](https://skfb.ly/oSKvz)) by Kaan Tezcan  
-- Image of "FREE Magical Assassin" ([link](https://skfb.ly/proYZ)) by Axinovium  
+- Image of "[Fantasy_sword_25_with_scabbard](https://skfb.ly/oMqTn)"by Nicu_Tepes_Vulpe  
+- Image of "[Fantasy_sword_11](https://skfb.ly/oLsUV)"by Nicu_Tepes_Vulpe  
+- Image of "[Fantasy 2 handed Sword](https://skfb.ly/L8oW)"by xrenou  
+- Image of "[Fantasy Axe (optimised for games)](https://skfb.ly/oxMxD)"by Ashraf Bouhadida  
+- Image of "[Drakefire Pistol](https://skfb.ly/6xCGp)"by Teliri  
+- Image of "[Fantasy Longsword](https://skfb.ly/ontRY)"by Faber  
+- Image of "[Fantasy Axe](https://skfb.ly/oQQ7R)"by Mikołaj Michalak  
+- Image of "[Bow and Arrow](https://skfb.ly/6YKo6)"by Amatsukast  
+- Image of "[Medieval crosbow](https://skfb.ly/6SxQx)"by Cyril43  
+- Image of "[Free Female Fantasy Armor - 2](https://skfb.ly/oSKvz)"by Kaan Tezcan  
+- Image of "[FREE Magical Assassin](https://skfb.ly/proYZ)"by Axinovium  
 
 ---
 
