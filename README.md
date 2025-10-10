@@ -102,13 +102,18 @@ class Cart_Item(models.Model):
 - Only users and admins exist.  
 - Login, registration, and logout use Django auth and allauth.  
 - Admin users have access to Django’s admin dashboard.  
+- Admin dashboard does include a custom action to list/de-list items.
 - Routes requiring authentication include review submission and cart viewing.  
 
 ---
 
 ## 🧪 Testing
 - Django `TestCase` used to test models, views, and forms.  
-- Browser testing via Chrome DevTools.  
+- HTML Validation using W3's HTML Validation Tool
+![Screenshot of W3's HTML Validator, showing only minor warnings.](readme-imgs\html-validation.png)
+- Browser testing via Chrome DevTools. 
+![Screenshot of the deployed site with Chrome's Lighthouse tool open.](readme-imgs\lighthouse-test.png)
+	- Best Practices' low score was mostly attributed to Cloudinary's lack of HTTPS usage.
 - Peer testing helped identify issues such as adding items to the cart while logged out (which previously caused 500 errors).  
 - Copilot generated initial test scaffolds, later manually corrected.  
 - Tests cover: product creation, review submission, cart operations, and user authentication.  
@@ -133,10 +138,14 @@ class Cart_Item(models.Model):
 ---
 
 ## 🚀 Agile Planning & UX Design
-- Planning and documentation tracked in Obsidian with Kanban plugin.  
+- Planning and documentation tracked in Obsidian with Kanban plugin.
+![Screenshot of Obsidian Markdown Editor, showing a Kanban board within it.](readme-imgs\kanban-board.png)
+
 - Wireframes created in Adobe Illustrator with inspiration from LARPing and medieval replica websites.  
+![Wireframe of a web layout as shown on a mobile layout.](readme-imgs\wireframe-mobile.webp)
+
 - Responsive and modern UI design with Bootstrap 5, Flexbox, and semantic HTML.  
-- Accessibility checks for color contrast, labels, and navigation.  
+- Accessibility checks for colour contrast, labels, and navigation.  
 - Iterative user testing informed interface improvements.  
 
 ---
@@ -161,17 +170,17 @@ class Cart_Item(models.Model):
 ## 🎨 3D Model & Image Credits
 Any usage of this project must include the following attributions, as they are licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/):
 
-- Image of "[Fantasy_sword_25_with_scabbard](https://skfb.ly/oMqTn)"by Nicu_Tepes_Vulpe  
-- Image of "[Fantasy_sword_11](https://skfb.ly/oLsUV)"by Nicu_Tepes_Vulpe  
-- Image of "[Fantasy 2 handed Sword](https://skfb.ly/L8oW)"by xrenou  
-- Image of "[Fantasy Axe (optimised for games)](https://skfb.ly/oxMxD)"by Ashraf Bouhadida  
-- Image of "[Drakefire Pistol](https://skfb.ly/6xCGp)"by Teliri  
-- Image of "[Fantasy Longsword](https://skfb.ly/ontRY)"by Faber  
-- Image of "[Fantasy Axe](https://skfb.ly/oQQ7R)"by Mikołaj Michalak  
-- Image of "[Bow and Arrow](https://skfb.ly/6YKo6)"by Amatsukast  
-- Image of "[Medieval crosbow](https://skfb.ly/6SxQx)"by Cyril43  
-- Image of "[Free Female Fantasy Armor - 2](https://skfb.ly/oSKvz)"by Kaan Tezcan  
-- Image of "[FREE Magical Assassin](https://skfb.ly/proYZ)"by Axinovium  
+- Image of "[Fantasy_sword_25_with_scabbard](https://skfb.ly/oMqTn)" by Nicu_Tepes_Vulpe  
+- Image of "[Fantasy_sword_11](https://skfb.ly/oLsUV)" by Nicu_Tepes_Vulpe  
+- Image of "[Fantasy 2 handed Sword](https://skfb.ly/L8oW)" by xrenou  
+- Image of "[Fantasy Axe (optimised for games)](https://skfb.ly/oxMxD)" by Ashraf Bouhadida  
+- Image of "[Drakefire Pistol](https://skfb.ly/6xCGp)" by Teliri  
+- Image of "[Fantasy Longsword](https://skfb.ly/ontRY)" by Faber  
+- Image of "[Fantasy Axe](https://skfb.ly/oQQ7R)" by Mikołaj Michalak  
+- Image of "[Bow and Arrow](https://skfb.ly/6YKo6)" by Amatsukast  
+- Image of "[Medieval crosbow](https://skfb.ly/6SxQx)" by Cyril43  
+- Image of "[Free Female Fantasy Armor - 2](https://skfb.ly/oSKvz)" by Kaan Tezcan  
+- Image of "[FREE Magical Assassin](https://skfb.ly/proYZ)" by Axinovium  
 
 ---
 
