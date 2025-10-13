@@ -7,29 +7,30 @@ STATUS = ((True, "Listed"), (False, "Unlisted"))
 
 # Create your models here.
 
+
 class Product(models.Model):
     """
     Stores a single product's information.
     """
     CATEGORY_CHOICES = [
-    
+
         (
-            'Melee Weapons', 
+            'Melee Weapons',
             (
                 ('onehanded', 'One-Handed Melee'),
                 ('twohanded', 'Two-Handed Melee'),
             ),
         ),
         (
-            'Ranged Weapons', 
-        (
+            'Ranged Weapons',
+            (
                 ('bow', 'Bow'),
                 ('crossbow', 'Crossbow'),
                 ('exotic', 'Exotic'),
             ),
         ),
         (
-            'Armor', 
+            'Armor',
             (
                 ('light', 'Light Armor'),
                 ('medium', 'Medium Armor'),
@@ -43,21 +44,22 @@ class Product(models.Model):
     product_name = models.CharField(max_length=200, default="newProduct")
     subtitle = models.CharField(max_length=200, default="newProductDesc")
     category = models.CharField(max_length=109,
-                  choices=CATEGORY_CHOICES,
-                  default="unknown")
+                                choices=CATEGORY_CHOICES,
+                                default="unknown")
     main_image = CloudinaryField('image', default='placeholder')
     price = models.DecimalField(max_digits=7, decimal_places=2)
     stock_quantity = models.IntegerField()
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     description = models.TextField()
-    review_average = models.DecimalField(max_digits=3, decimal_places=1, default=0.0)
+    review_average = models.DecimalField(
+        max_digits=3, decimal_places=1, default=0.0)
 
     class Meta:
         ordering = ["created_on"]
 
     def __str__(self):
-        return f"{self.name}"
+        return f"{self.product_name}"
 
 
 class Customer(models.Model):
@@ -76,7 +78,10 @@ class Cart(models.Model):
 
 
 class Cart_Item(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="stagedproduct")
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        related_name="stagedproduct")
     quantity = models.PositiveIntegerField(default=0)
     user = models.ForeignKey(User, default=None, on_delete=models.CASCADE)
     date_added = models.DateTimeField(auto_now_add=True)
@@ -86,8 +91,14 @@ class Cart_Item(models.Model):
 
 
 class Review(models.Model):
-    product_id = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="reviews")
-    username = models.ForeignKey(User, on_delete=models.CASCADE, related_name="reviewer")
+    product_id = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        related_name="reviews")
+    username = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="reviewer")
     title = models.CharField(max_length=150)
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
@@ -97,4 +108,7 @@ class Review(models.Model):
         ordering = ["created_on"]
 
     def __str__(self):
-        return f"{self.product_id} Review: '{self.title}' submitted by {self.username}"
+        return f"{
+            self.product_id} Review: '{
+            self.title}' submitted by {
+            self.username}"
