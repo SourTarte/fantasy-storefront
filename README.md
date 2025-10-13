@@ -64,7 +64,7 @@ python manage.py runserver
 
 **Review Model:** Links users to products with `rating`, `comment`, and `created_at`. Users may only submit one review per product.  
 
-**Cart_Item Model:** Associates products with users and tracks quantity. The `subtotal()` method calculates the line total for display.  
+**Cart_Item Model:** Associates products with users and tracks quantity. The `__str__()` method calculates the line total for display.  
 
 Example:
 ```python
