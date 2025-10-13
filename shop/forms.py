@@ -1,6 +1,5 @@
 from django import forms
-from .models import Review, Cart_Item
-from crispy_forms.helper import FormHelper
+from .models import Review
 
 
 class ReviewForm(forms.ModelForm):

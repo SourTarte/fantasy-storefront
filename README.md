@@ -187,3 +187,7 @@ Any usage of this project must include the following attributions, as they are l
 ### 🧾 License
 
 This project was created for educational purposes as part of the **AI-Augmented Full Stack Bootcamp (Django Framework)**.
+
+## 🐍 Code Style
+
+All Python code in this project adheres to [PEP 8 – Style Guide for Python Code](https://pep8.org/). Code style is enforced using [flake8](https://flake8.pycqa.org/).
