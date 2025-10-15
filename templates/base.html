@@ -1,19 +1,16 @@
 {% load static %}
 
-{% url 'product_list' as product_list_url %}
+{% url 'art_list' as art_list_url %}
 {% url 'account_login' as login_url %}
 {% url 'account_signup' as signup_url %}
 {% url 'account_logout' as logout_url %}
-{% load i18n %}
-{% load account socialaccount %}
 
 <!DOCTYPE html>
 <html class="h-100" lang="en">
 
 <head>
-    <title>The Dragon's Hoard: For Blades and Beer</title>
-    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <title>CodeStar Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Google Fonts CSS -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -21,132 +18,50 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;700&display=swap" rel="stylesheet">
 
     <!-- Font Awesome CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="{% static 'css/style2.css' %}">
-
-    {% block extraheaders %}
-    
-    {% endblock extraheaders %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
 </head>
 
-<body class="d-flex flex-column h-100">
+<body class="d-flex flex-column h-100 main-bg">
 
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-md pt-3" data-bs-theme="dark">
-        <div class="container">
-            <a class="navbar-brand d-flex" href="{% url 'product_list' %}">
-                <span>
-                    <i class="fa-solid fa-dragon me-2"></i>The Dragon's Hoard
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'art_list' %}"><span class="brand">c<span class="red-o">o</span>de<span
+                        class="thin">|star</span></span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == art_list_url %}active{% endif %}" aria-current="page"
+                            href="{% url 'art_list' %}">Home</a>
+                    </li>
+                </ul>
+                <span class="navbar-text text-muted">
+                    adventures of a software developer
                 </span>
-            </a>
-            <!--
-                <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-5"><span class="visually-hidden">Toggle navigation</span>
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-            -->
-                {% if user.is_authenticated %}
-                <a data-bs-toggle="collapse" class="navbar-toggler text-white border-0" data-bs-target="#navcol-5">
-                {{user}} <i class="fa-solid fa-caret-down"></i>
-            </a>
-                {% else %}
-                <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-5"><span class="visually-hidden">Toggle navigation</span>
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                {% endif %}
-            
-            
-            <div class="collapse navbar-collapse justify-content-end" id="navcol-5">
-                {% if user.is_authenticated %}
-                <ul class="navbar-nav mt-2">
-                    <li id="welcome-back" class="nav-item text-white my-auto me-5">Lovely to see you, {{ user }}</li>
-                    <li class="nav-item"><a class="btn btn-primary m-1 nav-link {% if request.path == view_cart %}active{% endif %}" role="button" aria-current="page" href="{% url 'view_cart' %}">My Horsecart</a></li>
-                    <li class="nav-item"><a class="btn btn-primary m-1 nav-link" data-bs-toggle="modal" data-bs-target="#logoutModal">Logout</a></li>
-                </ul>
-                
-                <!--<button type="button" class="btn btn-primary ms-4" data-bs-toggle="modal" data-bs-target="#cartModal">
-                    My Horsecart
-                </button>-->
-                {% else %}
-                <ul class="navbar-nav mt-2">
-                    <li class="nav-item"><a class="btn btn-primary m-1 nav-link {% if request.path == signup_url %}active{% endif %}" role="button" aria-current="page" href="{% url 'account_signup' %}">Sign Up</a></li>
-                    <li class="nav-item"><a class="btn btn-primary m-1 nav-link {% if request.path == login_url %}active{% endif %}" role="button" aria-current="page" href="{% url 'account_login' %}">Login</a></li>
-                </ul>
-                {% endif %}
             </div>
         </div>
-            
     </nav>
-
-    <!-- Logout Modal -->
-    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="logoutModalLabel">Log Out?</h1>
-                
-            </div>
-            <div class="modal-body">
-                Are you sure you want to sign out?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <form method="post" action="{% url 'account_logout' %}">
-                    {% csrf_token %}
-                    {% if redirect_field_value %}
-                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-                    {% endif %}
-                    <button class="btn btn-primary right" type="submit">{% trans 'Sign Out' %}</button>
-                </form>
-            </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Shopping Cart Modal -->
-    <!--
-    <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="logoutModalLabel">Shopping Cart</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <h3>This Feature is Still Under Development</h3>
-                {% for item in cart_items %}
-                <div class="product-item">
-                    <p>{{ item.product.name }} ({{ item.quantity }})</p>
-                    <p>Price: ${{ item.product.price }}</p>
-                    <a href="{% url 'remove_from_cart' item.id %}">Remove</a>
-                </div>
-                {% empty %}
-                <p>Your cart is empty.</p>
-                {% endfor %}
-                <p>Total Price: ${{ total_price }}</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <a href="{% url 'product_list' %}">Continue Shopping</a>
-            </div>
-            </div>
-        </div>
-    </div>
-    -->
-    
     
     <!-- displaying Django messages -->
     <div class="container">
         <div class="row">
             <div class="col-md-8 offset-md-2">
-                {% for product in products %}
-                <div class="alert {{ product.tags }} alert-dismissible fade show" id="msg" role="alert">
-                    {{ product | safe }}
+                {% for message in messages %}
+                <div class="alert {{ message.tags }} alert-dismissible
+          fade show" id="msg" role="alert">
+                    {{ message | safe }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
                 {% endfor %}
@@ -154,7 +69,12 @@
         </div>
     </div>
 
-    <main class="flex-shrink-0 bg">
+    <main class="flex-shrink-0 main-bg">
+        {% if user.is_authenticated %}
+        <p class="text-end m-3">You are logged in as {{ user }}</p>
+        {% else %}
+        <p class="text-end m-3">You are not logged in</p>
+        {% endif %}
 
         {% block content %}
         <!-- Content Goes here -->
@@ -163,21 +83,22 @@
     </main>
 
     <!-- Footer -->
-    <footer id="footer-container" class="text-center bg-dark">
-        <div class="container text-white py-2">
-            <h5>Come Visit Us!:</h5>
-            <h6>The Dragon's Hoard, 5 Market Street, Baldur's Gate, Faerun</h6>
-            <hr>
-            <p class="text-muted mb-0">
-                {% block copyright %}
-                {% endblock copyright %}
-                2025 © Dion McMillan
-            </p>
-        </div>
+    <footer class="footer mt-auto py-3 dark-bg">
+        <p class="m-0 text-center text-white">
+            {% block copyright %}
+            Made by Code Instituters
+            {% endblock copyright %}
+        </p>
+        <p class="m-0 text-center text-white">Follow us: <i class="fab fa-facebook-square ms-3"></i>
+            <i class="fab fa-twitter-square ms-3"></i>
+            <i class="fab fa-instagram-square ms-3"></i>
+            <i class="fab fa-youtube-square ms-3"></i>
+        </p>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous">
+        </script>
     {% block extras %}
     {% endblock %}
 </body>

@@ -1,1 +1,1 @@
-web: gunicorn dragonshoard.wsgi
+web: gunicorn constcollection.wsgi
