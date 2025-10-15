@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Hero Section with Welcome Message -->
+<section class="py-4 py-xl-5">
+    <div class="container h-100">
+        <div class="text-white bg-primary border rounded border-0 p-4 py-5">
+            <div class="row h-100">
+                <div class="col-md-10 col-xl-8 text-center d-flex d-sm-flex d-md-flex justify-content-center align-items-center mx-auto justify-content-md-start align-items-md-center justify-content-xl-center">
+                    <div>
+                        <h1 class="text-uppercase fw-bold text-white mb-3">
+                            If you can't buy it here, it ain't worth buying
+                        </h1>
+                        <p class="mb-4">
+                            Welcome to the Dragon's Hoard! The most popular bar/armoury on this side of the continent, because it's the <strong>only</strong>&nbsp;bar/armoury on the continent!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Product Listing Section -->
+<section>
+    <div class="container product-section mb-5">
+        <div class="row">
+            <div class="col">
+                <!-- Responsive grid for products -->
+                <div class="row gx-1 gy-1 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 justify-content-evenly">
+                    {% for product in product_list %}
+                    <div class="col">
+                        <div class="card h-100">
+                            <div class="card-body d-flex flex-column">
+                                <!-- Product image: show placeholder if missing -->
+                                {% if "placeholder" in product.main_image.url %}
+                                <img src="{% static 'images/placeholder.webp' %}" class="img-fluid bg-light-subtle border rounded border-light-subtle p-2" alt="placeholder">
+                                {% else %}
+                                <img src="{{ product.main_image.url }}" class="product_img img-fluid border rounded p-2" alt="{{ product.product_name }}" fetchpriority="high">
+                                {% endif %}
+
+                                <!-- Product name and subtitle, links to product detail page -->
+                                <div class="mb-3">
+                                    <a href="{% url 'product_page' product.product_name product.id %}">
+                                        <h5 class="card-title my-1">
+                                            <span>{{ product.product_name }}</span>
+                                        </h5>
+                                        <p class="card-text">{{ product.subtitle }}</p>
+                                    </a>
+                                </div>
+
+                                <!-- Price and action buttons -->
+                                <div class="row align-items-bottom mt-auto">
+                                    <hr>
+                                    <h6 class="card-subtitle">{{ product.price }}GP</h6>
+                                    <div class="col py-1">
+                                        <!-- Add to Cart button: requires login -->
+                                        {% if user.is_authenticated %}
+                                            <a class="btn btn-outline-primary w-100" role="button" aria-current="page" href="{% url 'add_to_cart' product.id %}">Add to Cart</a>
+                                        {% else %}
+                                            <a class="btn btn-outline-primary w-100" role="button" aria-current="page" href="{% url 'account_login' %}">Add to Cart</a>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col py-1">
+                                        <!-- Details button: always available -->
+                                        <a class="btn btn-outline-primary w-100" role="button" aria-current="page" href="{% url 'product_page' product.product_name product.id %}">Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}
+
+{% block extras %}
+{% endblock extras %}
+
