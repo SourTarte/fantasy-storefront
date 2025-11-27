@@ -2,16 +2,16 @@
 {% load static %}
 {% block content %}
 
-<!-- Cart Page Section -->
+<!-- Wishlist Page Section -->
 <section class="h-100">
     <!-- Order form (currently not functional, placeholder for future enhancements) -->
-    <form id="orderForm" method="post">
+    <form id="wishlistForm" method="post">
         {% csrf_token %}
         <div class="container h-100 py-5">
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-10">
 
-                    <!-- Cart Header with sort option -->
+                    <!-- Wart Header with sort option -->
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <h3 class="fw-normal mb-0">{{user}}'s Wishlist</h3>
                         <div>
@@ -22,7 +22,7 @@
                         </div>
                     </div>
 
-                    <!-- Loop through each item in the cart -->
+                    <!-- Loop through each item in the wishlist -->
                     {% for item in wishlist_items %}
                     <div class="card rounded-3 mb-4">
                         <div class="card-body p-4">
@@ -45,7 +45,7 @@
 
                                 <!-- Remove item -->
                                 <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                    <a href="{% url 'remove_from_cart' item.id %}" class="text-danger">
+                                    <a href="{% url 'remove_from_wishlist' item.id %}" class="text-danger">
                                         <i class="fas fa-trash fa-lg"></i>
                                     </a>
                                 </div>
@@ -53,7 +53,7 @@
                         </div>
                     </div>
                     {% empty %}
-                    <!-- Message if cart is empty -->
+                    <!-- Message if wishlist is empty -->
                     <p>This wishlist is empty.</p>
                     {% endfor %}
                 </div> <!-- /.col-10 -->
