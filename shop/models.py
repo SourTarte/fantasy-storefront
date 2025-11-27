@@ -90,6 +90,41 @@ class Cart_Item(models.Model):
 
     def __str__(self):
         return f'{self.quantity} x {self.product.product_name}'
+    
+class Wishlist(models.Model):
+    # Owner of the wishlist (reuses the same User model used by Cart_Item)
+    user = models.ForeignKey(User, default=None, on_delete=models.CASCADE, related_name='wishlists')
+    # Optional user-facing name for the wishlist (e.g. "My Holiday List")
+    name = models.CharField(max_length=100, blank=True, default='Default Wishlist')
+    created_on = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        # show newest wishlists first
+        ordering = ['-created_on']
+
+    def __str__(self):
+        return f"{self.user}'s wishlist ({self.name})"
+
+
+class Wishlist_Item(models.Model):
+    # Link back to the wishlist container
+    wishlist = models.ForeignKey(
+        Wishlist,
+        on_delete=models.CASCADE,
+        related_name='items')
+    # Product being wished for (uses the existing Product model)
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        related_name='wishlisted_in')
+
+    class Meta:
+        # Prevent duplicate product entries per wishlist
+        unique_together = ('wishlist', 'product')
+        ordering = ['product']
+
+    def __str__(self):
+        return f'{self.product.product_name} in {self.wishlist}'
 
 
 class Review(models.Model):
