@@ -1,9 +1,12 @@
-{% extends 'base.html' %} {% load static %} {% block content %}
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
 
 <!-- Cart Page Section -->
 <section class="h-100">
     <!-- Order form (currently not functional, placeholder for future enhancements) -->
     <form id="orderForm" method="post">
+        {% csrf_token %}
         <div class="container h-100 py-5">
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-10">
@@ -26,33 +29,56 @@
                             <div class="row d-flex justify-content-between align-items-center">
                                 <!-- Product image -->
                                 <div class="col-md-2 col-lg-2 col-xl-2">
-                                    <img src="{{ item.product.main_image.url }}" class="img-thumbnail mt-3 rounded-3" alt="{{ item.product.product_name }}">
+                                    <img src="{{ item.product.main_image.url }}"
+                                         class="img-thumbnail mt-3 rounded-3"
+                                         alt="{{ item.product.product_name }}">
                                 </div>
                                 <!-- Product name -->
                                 <div class="col-md-3 col-lg-3 col-xl-3">
                                     <p class="lead fw-normal mb-2">{{ item.product.product_name }}</p>
                                 </div>
-                                <!-- Quantity controls: minus remains UI-only; plus now posts to server to increment -->
+
+                                <!-- Quantity controls -->
                                 <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                                    <button data-mdb-button-init data-mdb-ripple-init class="btn btn-link px-2" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" type="button">
+                                    <!-- Server-side minus button using the outer form -->
+                                    <button
+                                        class="btn btn-link px-2 ms-2"
+                                        type="submit"
+                                        title="Minus one"
+                                        formaction="{% url 'increment_in_cart' item.id 0 %}"
+                                        formmethod="post">
+                                        {% csrf_token %}
                                         <i class="fas fa-minus"></i>
                                     </button>
 
                                     <!-- Quantity display (readonly) -->
-                                    <input id="form1" min="0" name="quantity" value="{{ item.quantity }}" type="number" class="form-control form-control-sm" readonly />
+                                    <input
+                                        id="form1-{{ item.id }}"
+                                        min="0"
+                                        name="quantity_{{ item.id }}"
+                                        value="{{ item.quantity }}"
+                                        type="number"
+                                        class="form-control form-control-sm"
+                                        readonly
+                                    />
 
-                                    <!-- Server-side increment form: posts to add_to_cart view to increment quantity -->
-                                    <form method="post" action="{% url 'increment_in_cart' item.id 1 %}" class="ms-2 d-inline">
+                                    <!-- Server-side increment button using the outer form -->
+                                    <button
+                                        class="btn btn-link px-2 ms-2"
+                                        type="submit"
+                                        title="Add one"
+                                        formaction="{% url 'increment_in_cart' item.id 1 %}"
+                                        formmethod="post">
                                         {% csrf_token %}
-                                        <button type="submit" class="btn btn-link px-2" title="Add one">
-                                            <i class="fas fa-plus"></i>
-                                        </button>
-                                    </form>
+                                        <i class="fas fa-plus"></i>
+                                    </button>
                                 </div>
+
                                 <!-- Product price -->
                                 <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
                                     <h5 class="mb-0">{{ item.product.price }} GP</h5>
                                 </div>
+
                                 <!-- Remove item (link not yet implemented) -->
                                 <div class="col-md-1 col-lg-1 col-xl-1 text-end">
                                     <a href="#!" class="text-danger"><i class="fas fa-trash fa-lg"></i></a>
@@ -71,11 +97,13 @@
                             <div class="row">
                                 <!-- Clear cart button -->
                                 <div class="col">
-                                    <a class="btn btn-secondary w-100" role="button" aria-current="page" href="{% url 'clear_cart' %}">Clear Cart</a>
+                                    <a class="btn btn-secondary w-100" role="button" aria-current="page"
+                                       href="{% url 'clear_cart' %}">Clear Cart</a>
                                 </div>
                                 <!-- Order now button (currently just clears cart) -->
                                 <div class="col">
-                                    <a class="btn btn-primary w-100" role="button" aria-current="page" href="{% url 'clear_cart' %}">Order Now</a>
+                                    <a class="btn btn-primary w-100" role="button" aria-current="page"
+                                       href="{% url 'clear_cart' %}">Order Now</a>
                                 </div>
                                 <!-- Total price display -->
                                 <div class="col">
@@ -84,10 +112,10 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    {% csrf_token %}
+
+                </div> <!-- /.col-10 -->
+            </div> <!-- /.row -->
+        </div> <!-- /.container -->
     </form>
 </section>
 

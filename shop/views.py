@@ -128,11 +128,13 @@ def remove_from_cart(request, item_id):
     return redirect('view_cart')
 
 def increment_in_cart(request, cart_item_id, add_subtract):
-    print("Got into increment")
-    cart_item = Cart_Item.object.get(id=cart_item_id)
-    cart_item.quantity += add_subtract
-    if cart_item.quantity <= 0:
-        cart_item.delete()
+    cart_item, created = Cart_Item.objects.get_or_create(
+        id=cart_item_id, user=request.user)
+    if add_subtract == 0:
+        cart_item.quantity -= 1
+    else:cart_item.quantity += 1
+    
+    cart_item.save()
     return redirect('view_cart')
 
 
