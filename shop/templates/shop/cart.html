@@ -79,9 +79,11 @@
                                     <h5 class="mb-0">{{ item.product.price }} GP</h5>
                                 </div>
 
-                                <!-- Remove item (link not yet implemented) -->
+                                <!-- Remove item -->
                                 <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                    <a href="#!" class="text-danger"><i class="fas fa-trash fa-lg"></i></a>
+                                    <a href="{% url 'remove_from_cart' item.id %}" class="text-danger">
+                                        <i class="fas fa-trash fa-lg"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
