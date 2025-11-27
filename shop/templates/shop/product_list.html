@@ -57,14 +57,14 @@
                                     <div class="col py-1">
                                         <!-- Add to Cart button: requires login -->
                                         {% if user.is_authenticated %}
-                                            <a class="btn btn-outline-primary w-100" role="button" aria-current="page" href="{% url 'add_to_cart' product.id %}">Add to Cart</a>
+                                            <a class="btn btn-primary w-100" role="button" aria-current="page" href="{% url 'add_to_cart' product.id %}">Add to Cart</a>
                                         {% else %}
-                                            <a class="btn btn-outline-primary w-100" role="button" aria-current="page" href="{% url 'account_login' %}">Add to Cart</a>
+                                            <a class="btn btn-primary w-100" role="button" aria-current="page" href="{% url 'account_login' %}">Add to Cart</a>
                                         {% endif %}
                                     </div>
                                     <div class="col py-1">
                                         <!-- Details button: always available -->
-                                        <a class="btn btn-outline-primary w-100" role="button" aria-current="page" href="{% url 'product_page' product.product_name product.id %}">Details</a>
+                                        <a class="btn btn-outline-secondary w-100" role="button" aria-current="page" href="{% url 'product_page' product.product_name product.id %}">Details</a>
                                     </div>
                                 </div>
                             </div>
