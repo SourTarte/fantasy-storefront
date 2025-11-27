@@ -11,6 +11,7 @@ env.py
 .venv/
 venv/ __
 pycache__/
+shop/__pycache__
 settings.json
 db.sqlite3
 ignored/
