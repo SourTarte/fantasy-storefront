@@ -165,11 +165,11 @@ What was learned from writing/running the tests
 ---
 ## 🚀 Agile Planning & UX Design
 During the project, a codified list of 5 core goals were formed. These pillars were:
-**1. Deliver a functional fantasy-themed e-commerce MVP**
-**2. Implement a complete user review workflow**
-**3. Establish clear, accessible product information**
-**4. Build a navigation structure that reduces friction**
-**5. Ensure responsive behaviour across device sizes**
+1. Deliver a functional fantasy-themed e-commerce MVP
+2. Implement a complete user review workflow
+3. Establish clear, accessible product information
+4. Build a navigation structure that reduces friction
+5. Ensure responsive behaviour across device sizes
 
 - During the project, planning and documentation were tracked in Obsidian with a Kanban plugin.
 ![Screenshot of Obsidian Markdown Editor, showing a Kanban board within it.](/readme-imgs/kanban-board.png)
