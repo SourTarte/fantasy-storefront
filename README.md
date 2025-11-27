@@ -1,6 +1,7 @@
 # 🐉 The Dragon’s Hoard Barmoury
 
 **Live Demo:** [The Dragon’s Hoard Barmoury on Heroku](https://squat-llama-c5e1f1c2daa0.herokuapp.com/)
+**Project Planning Board**: [GitHub Projects](https://github.com/users/SourTarte/projects/8)
 
 _The Dragon’s Hoard Barmoury_ is a simulated fantasy-themed digital storefront built with Django. It demonstrates a complete e-commerce experience with user authentication, product listings, reviews, and a rudimentary cart system. This project was created as a full-stack capstone to showcase minimum viable product functionality for an e-commerce site while integrating responsive design and accessible UX principles.
 
