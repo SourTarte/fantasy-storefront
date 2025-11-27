@@ -17,104 +17,121 @@
                         <div>
                             <p class="mb-0">
                                 <span class="text-muted">Sort by:</span>
-                                <a href="#!" class="text-body">price <i class="fas fa-angle-down mt-1"></i></a>
+                                <!-- sortPriceLink toggles sort order and flips the icon -->
+                                <a href="#" id="sortPriceLink" class="text-body">price
+                                    <i class="fas fa-angle-down ms-1" id="sortPriceIcon" aria-hidden="true"></i>
+                                </a>
                             </p>
                         </div>
                     </div>
 
-                    <!-- Loop through each item in the cart -->
-                    {% for item in cart_items %}
-                    <div class="card rounded-3 mb-4">
-                        <div class="card-body p-4">
-                            <div class="row d-flex justify-content-between align-items-center">
-                                <!-- Product image -->
-                                <div class="col-md-2 col-lg-2 col-xl-2">
-                                    <img src="{{ item.product.main_image.url }}"
-                                         class="img-thumbnail mt-3 rounded-3"
-                                         alt="{{ item.product.product_name }}">
-                                </div>
-                                <!-- Product name -->
-                                <div class="col-md-3 col-lg-3 col-xl-3">
-                                    <p class="lead fw-normal mb-2">{{ item.product.product_name }}</p>
-                                </div>
+                    <!-- Container for cart items so JS can reorder them -->
+                    <div id="cart-items-list">
+                        {% for item in cart_items %}
+                        <div class="card rounded-3 mb-4 cart-item">
+                            <div class="card-body p-4">
+                                <div class="row d-flex justify-content-between align-items-center">
+                                    <!-- Product image -->
+                                    <div class="col-md-2 col-lg-2 col-xl-2">
+                                        <img src="{{ item.product.main_image.url }}"
+                                             class="img-thumbnail mt-3 rounded-3"
+                                             alt="{{ item.product.product_name }}">
+                                    </div>
+                                    <!-- Product name -->
+                                    <div class="col-md-3 col-lg-3 col-xl-3">
+                                        <p class="lead fw-normal mb-2">{{ item.product.product_name }}</p>
+                                    </div>
 
-                                <!-- Quantity controls -->
-                                <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                                    <!-- Server-side minus button using the outer form -->
-                                    <button
-                                        class="btn btn-link px-2 ms-2"
-                                        type="submit"
-                                        title="Minus one"
-                                        formaction="{% url 'increment_in_cart' item.id 0 %}"
-                                        formmethod="post">
-                                        {% csrf_token %}
-                                        <i class="fas fa-minus"></i>
-                                    </button>
+                                    <!-- Quantity controls -->
+                                    <div class="col-md-3 col-lg-3 col-xl-2 pb-3 d-flex">
+                                        <!-- Server-side minus button using the outer form -->
+                                        <button
+                                            class="btn btn-link px-2 ms-2"
+                                            type="submit"
+                                            title="Minus one"
+                                            formaction="{% url 'increment_in_cart' item.id 0 %}"
+                                            formmethod="post">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
 
-                                    <!-- Quantity display (readonly) -->
-                                    <input
-                                        id="form1-{{ item.id }}"
-                                        min="0"
-                                        name="quantity_{{ item.id }}"
-                                        value="{{ item.quantity }}"
-                                        type="number"
-                                        class="form-control form-control-sm"
-                                        readonly
-                                    />
+                                        <!-- Quantity display (readonly) -->
+                                        <input
+                                            id="form1-{{ item.id }}"
+                                            min="0"
+                                            name="quantity_{{ item.id }}"
+                                            value="{{ item.quantity }}"
+                                            type="number"
+                                            class="form-control form-control-sm"
+                                            readonly
+                                        />
 
-                                    <!-- Server-side increment button using the outer form -->
-                                    <button
-                                        class="btn btn-link px-2 ms-2"
-                                        type="submit"
-                                        title="Add one"
-                                        formaction="{% url 'increment_in_cart' item.id 1 %}"
-                                        formmethod="post">
-                                        {% csrf_token %}
-                                        <i class="fas fa-plus"></i>
-                                    </button>
-                                </div>
+                                        <!-- Server-side increment button using the outer form -->
+                                        <button
+                                            class="btn btn-link px-2 ms-2"
+                                            type="submit"
+                                            title="Add one"
+                                            formaction="{% url 'increment_in_cart' item.id 1 %}"
+                                            formmethod="post">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    </div>
 
-                                <!-- Product price -->
-                                <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                    <h5 class="mb-0">{{ item.product.price }} GP</h5>
-                                </div>
+                                    <!-- Product price -->
+                                    <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                                        <!-- store price & quantity as data-attributes so JS can compute line total -->
+                                        <h5 class="product-price-total mb-0"
+                                            data-price="{{ item.product.price }}"
+                                            data-quantity="{{ item.quantity }}">
+                                            {{ item.product.price|floatformat:0 }} GP
+                                        </h5>
+                                    </div>
 
-                                <!-- Remove item -->
-                                <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                    <a href="{% url 'remove_from_cart' item.id %}" class="text-danger">
-                                        <i class="fas fa-trash fa-lg"></i>
-                                    </a>
+                                    <!-- Remove item -->
+                                    <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                                        <a href="{% url 'remove_from_cart' item.id %}" class="text-danger">
+                                            <i class="fas fa-trash fa-lg"></i>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        {% empty %}
+                        <!-- Message if cart is empty -->
+                        <p>Your cart is empty.</p>
+                        {% endfor %}
                     </div>
-                    {% empty %}
-                    <!-- Message if cart is empty -->
-                    <p>Your cart is empty.</p>
-                    {% endfor %}
 
                     <!-- Cart actions and total price -->
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
-                                <!-- Clear cart button -->
                                 <div class="col">
-                                    <a class="btn btn-secondary w-100" role="button" aria-current="page"
-                                       href="{% url 'clear_cart' %}">Clear Cart</a>
+                                    <div class="row row-cols-1 row-cols-md-auto justify-content-evenly">
+                                            <a class="btn btn-secondary btn-block m-1" aria-current="page"
+                                            href="{% url 'save_cart_to_wishlist' %}">Save As Wishlist</a>
+
+                                        <!-- Clear cart button -->
+                                            <a class="btn btn-secondary btn-block m-1" aria-current="page"
+                                            href="{% url 'clear_cart' %}">Clear All Items</a>
+                                        
+                                        <!-- Order now button (currently just clears cart) -->
+                                            <button type="button" class="btn btn-primary btn-block m-1" aria-current="page"
+                                            href="" disabled>Order Now (WIP)</button>
+                                    </div>
                                 </div>
-                                <!-- Order now button (currently just clears cart) -->
-                                <div class="col">
-                                    <a class="btn btn-primary w-100" role="button" aria-current="page"
-                                       href="{% url 'clear_cart' %}">Order Now</a>
-                                </div>
+                                
+                                
                                 <!-- Total price display -->
-                                <div class="col">
-                                    <p class="text-end">Total Price: {{ total_price }} GP</p>
+                                <div class="col col-6 col-md-4">
+                                    <div class="row justify-content-end">
+                                        <div class="col">
+                                            <p class="text-end" style = "align-items: center">Total Price: {{ total_price }} GP</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div> <!-- /.col-10 -->
             </div> <!-- /.row -->
         </div> <!-- /.container -->
@@ -122,3 +139,63 @@
 </section>
 
 {% endblock content %}
+
+{% block extras %}
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        // Compute each line total display
+        function refreshLineTotals() {
+            document.querySelectorAll(".product-price-total").forEach((el) => {
+                const price = parseFloat(el.dataset.price) || 0;
+                const qty = parseInt(el.dataset.quantity, 10) || 0;
+                const total = price * qty;
+                el.textContent = Number.isInteger(total) ? String(total) + " GP" : total.toFixed(2) + " GP";
+            });
+        }
+        refreshLineTotals();
+
+        // Sorting behavior for cart items by product price (ascending/descending toggle)
+        const sortLink = document.getElementById("sortPriceLink");
+        const sortIcon = document.getElementById("sortPriceIcon");
+        const itemsContainer = document.getElementById("cart-items-list");
+        // state: true => ascending, false => descending
+        let ascending = false;
+
+        function parseItemPrice(cardEl) {
+            const priceEl = cardEl.querySelector(".product-price-total");
+            return priceEl ? (parseFloat(priceEl.dataset.price) || 0) : 0;
+        }
+
+        function sortCartItems(asc) {
+            if (!itemsContainer) return;
+            // get array of .cart-item children (skip non-card nodes)
+            const items = Array.from(itemsContainer.querySelectorAll(".cart-item"));
+            items.sort((a, b) => {
+                const pa = parseItemPrice(a);
+                const pb = parseItemPrice(b);
+                return asc ? pa - pb : pb - pa;
+            });
+            // reattach in new order
+            items.forEach((it) => itemsContainer.appendChild(it));
+        }
+
+        if (sortLink) {
+            sortLink.addEventListener("click", (ev) => {
+                ev.preventDefault();
+                ascending = !ascending; // toggle: first click -> true (ascending)
+                sortCartItems(ascending);
+                // flip icon
+                if (sortIcon) {
+                    if (ascending) {
+                        sortIcon.classList.remove("fa-angle-down");
+                        sortIcon.classList.add("fa-angle-up");
+                    } else {
+                        sortIcon.classList.remove("fa-angle-up");
+                        sortIcon.classList.add("fa-angle-down");
+                    }
+                }
+            });
+        }
+    });
+</script>
+{% endblock extras %}
