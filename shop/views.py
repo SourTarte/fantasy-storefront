@@ -2,8 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.views import generic
 from django.contrib import messages
-from django.http import HttpResponseRedirect
-from .models import Product, Review, Cart_Item
+from django.http import HttpResponseRedirect, JsonResponse
+from .models import Product, Review, Cart_Item, Wishlist, Wishlist_Item
 from .forms import ReviewForm
 
 # ------------------ Product Views ------------------ #
@@ -89,6 +89,40 @@ def review_delete(request, product_name, product_id, review_id):
             args=[
                 product_name,
                 product_id]))
+
+# ---------------- Wishlist Views ---------------- #
+
+
+def view_wishlist(request):
+    """
+    Display the current user's cart with all items and the total price.
+    """
+    wishlist, created = Wishlist.objects.get_or_create(user=request.user)
+    wishlist_items = Wishlist_Item.objects.filter(wishlist=wishlist)
+
+    return render(request, 'shop/wishlist.html',
+                  {'wishlist_items': wishlist_items, 'wishlist': wishlist})
+
+
+def add_to_wishlist(request, product):
+    """
+    Add a product to the user's wishlist. For normal requests redirect to view_wishlist.
+    For AJAX requests return JSON so the frontend can show a modal without redirect.
+    """
+    product = get_object_or_404(Product, id=product)
+    wishlist, created = Wishlist.objects.get_or_create(user=request.user)
+    wishlist_item, created = Wishlist_Item.objects.get_or_create(
+        product=product, wishlist=wishlist)
+    # ensure saved (get_or_create already saved when created)
+    wishlist_item.save()
+
+    # Return JSON for AJAX requests (fetch/XHR)
+    if request.headers.get("x-requested-with") == "XMLHttpRequest":
+        return JsonResponse({"status": "ok", "message": "Saved To Wishlist"})
+
+    # Fallback for non-AJAX requests (preserve existing behaviour)
+    return redirect("view_wishlist")
+
 
 # ------------------ Cart Views ------------------ #
 

@@ -23,6 +23,14 @@ urlpatterns = [
         views.view_cart,
         name='view_cart'),
     path(
+        'wishlist/',
+        views.view_wishlist,
+        name='view_wishlist'),
+    path(
+        'wishlist_add/<int:product>/',
+        views.add_to_wishlist,
+        name='add_to_wishlist'),
+    path(
         'add/<int:product>/',
         views.add_to_cart,
         name='add_to_cart'),
