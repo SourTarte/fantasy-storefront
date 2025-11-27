@@ -85,6 +85,9 @@ class Cart_Item(models.Model):
     user = models.ForeignKey(User, default=None, on_delete=models.CASCADE)
     date_added = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ["product"]
+
     def __str__(self):
         return f'{self.quantity} x {self.product.product_name}'
 
