@@ -94,16 +94,13 @@ class Cart_Item(models.Model):
 class Wishlist(models.Model):
     # Owner of the wishlist (reuses the same User model used by Cart_Item)
     user = models.ForeignKey(User, default=None, on_delete=models.CASCADE, related_name='wishlists')
-    # Optional user-facing name for the wishlist (e.g. "My Holiday List")
-    name = models.CharField(max_length=100, blank=True, default='Default Wishlist')
-    created_on = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         # show newest wishlists first
-        ordering = ['-created_on']
+        ordering = ['user']
 
     def __str__(self):
-        return f"{self.user}'s wishlist ({self.name})"
+        return f"{self.user}'s wishlist"
 
 
 class Wishlist_Item(models.Model):
