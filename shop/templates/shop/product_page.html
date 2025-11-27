@@ -21,12 +21,21 @@
     <div class="col mt-3">
       <div class="col py-1 mb-3">
         <h1>{{ product.product_name }}</h1>
-        <p class="text-muted">{{ product.price }} Gold</p>
+        <p class="text-primary">{{ product.price }} Gold</p>
         <!-- Add to Cart button: requires login -->
         {% if user.is_authenticated %}
-        <a class="btn btn-primary w-100" role="button" aria-current="page" href="{% url 'add_to_cart' product.id %}">Add to Cart</a>
+        <div class="row gy-2 gy-4-xl row-cols-1 row-cols-md-2 row-cols-xl-3">
+            <div class="col">
+                <a class="btn btn-primary w-100" role="button" aria-current="page" href="{% url 'add_to_cart' product.id %}">Add to Cart</a>
+            </div>
+            <div class="col">
+                <button class="btn btn-outline-secondary w-100 btn-add-wishlist" data-url="{% url 'add_to_wishlist' product.id %}" type="button">Add to Wishlist</button>
+                <!-- <a class="btn btn-outline-secondary w-100" role="button" aria-current="page" href="{% url 'view_wishlist' %}">Add to Wishlist</a> -->
+            </div>
+        </div>
         {% else %}
         <a class="btn btn-primary w-100" role="button" aria-current="page" href="{% url 'account_login' %}">Add to Cart</a>
+        <a class="btn btn-primary w-100" role="button" aria-current="page" href="{% url 'account_login' %}">Add to Wishlist</a>
         {% endif %}
       </div>
       <div>
@@ -113,6 +122,7 @@
 
 {% block extras %}
 <script src="{% static 'js/reviews.js' %}"></script>
+<script src="{% static 'js/wishlist.js' %}"></script>
 <!-- jQuery and Star Rating plugin scripts -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-star-rating@4.1.2/js/star-rating.min.js" type="text/javascript"></script>
