@@ -31,6 +31,10 @@ urlpatterns = [
         views.remove_from_cart,
         name='remove_from_cart'),
     path(
+        'increment/<int:cart_item_id> <int:add_subtract>/',
+        views.increment_in_cart,
+        name='increment_in_cart'),
+    path(
         'cart/clear/',
         views.clear_cart,
         name='clear_cart'),

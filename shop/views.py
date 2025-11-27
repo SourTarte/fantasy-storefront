@@ -67,13 +67,13 @@ def product_page(request, product_name, product_id):
 # ------------------ Review Views ------------------ #
 
 
-def review_delete(request, name, product_id, review_id):
+def review_delete(request, product_name, product_id, review_id):
     """
     Delete an individual review if the current user is the author.
     Shows a success or error message and redirects to the product page.
     """
     queryset = Product.objects.exclude(stock_quantity=0)
-    product = get_object_or_404(queryset, name=name, id=product_id)
+    product = get_object_or_404(queryset, product_name=product_name, id=product_id)
     review = get_object_or_404(Review, pk=review_id)
 
     if review.username == request.user:
@@ -87,7 +87,7 @@ def review_delete(request, name, product_id, review_id):
         reverse(
             'product_page',
             args=[
-                name,
+                product_name,
                 product_id]))
 
 # ------------------ Cart Views ------------------ #
@@ -125,6 +125,14 @@ def remove_from_cart(request, item_id):
     """
     cart_item = Cart_Item.objects.get(id=item_id)
     cart_item.delete()
+    return redirect('view_cart')
+
+def increment_in_cart(request, cart_item_id, add_subtract):
+    print("Got into increment")
+    cart_item = Cart_Item.object.get(id=cart_item_id)
+    cart_item.quantity += add_subtract
+    if cart_item.quantity <= 0:
+        cart_item.delete()
     return redirect('view_cart')
 
 
