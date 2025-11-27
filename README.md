@@ -5,7 +5,6 @@
 _The Dragon’s Hoard Barmoury_ is a simulated fantasy-themed digital storefront built with Django. It demonstrates a complete e-commerce experience with user authentication, product listings, reviews, and a rudimentary cart system. This project was created as a full-stack capstone to showcase minimum viable product functionality for an e-commerce site while integrating responsive design and accessible UX principles.
 
 ## Contents
-- [🐉 The Dragon’s Hoard Barmoury](#-the-dragons-hoard-barmoury)
 - [📋 Project Overview](#-project-overview)
 - [⚙️ Features and Technical Stack](#️-features-and-technical-stack)
 - [💻 Installation](#-installation)
@@ -41,7 +40,8 @@ The goal was to create a focused and functional MVP of an e-commerce site with a
 **Key Features:**
 - Product listings with images and categories (category filtering to be added in future).  
 - User-submitted product reviews with rating scores.  
-- Persistent cart system powered by `Cart_Item` model.  
+- Persistent cart system powered by `Cart_Item` model.
+- User-attached wishlisting, with the ability to turn a cart into a wishlist.
 - Admin dashboard to manage products and reviews.  
 - Fully responsive navigation and layout with consistent styling.  
 - Session persistence and secure CRUD operations for users and data.  
@@ -78,6 +78,10 @@ python manage.py runserver
 **Review Model:** Links users to products with `rating`, `comment`, and `created_at`. Users may only submit one review per product.  
 
 **Cart_Item Model:** Associates products with users and tracks quantity. The `subtotal()` method calculates the line total for display.  
+
+**Wishlist_Item Model:** Associated a product with a Wishlist, creating a user-curated record of desired products.
+
+**Wishlist Model:** Acts as a layer of seperation between Wishlist_Item and User, leaving scope open to expand functionality with multiple wish lists.
 
 Example:
 ```python
@@ -182,16 +186,20 @@ During the project, a codified list of 5 core goals were formed. These pillars w
 
 **Challenges:**  
 - Collating item IDs and quantities for the cart system.  
-- Database conflicts and debugging logic for reviews and cart persistence.  
+- Database conflicts and debugging logic for reviews and cart persistence.
+- Some beginning friction with relation to Django's app-based logic.
 
 **Proud Achievements:**  
-- Seamless cart implementation and responsive navbar on both desktop and mobile.  
-- Modern interface design with fantasy theming.  
+- Responsive cart and navbar implementation for both desktop and mobile.
+- Seamless wishlisting and product list sorting.
+- Modern interface design, blending readability with a fantasy theming.  
 
 **Future Enhancements:**  
-- Implement saved wishlists.  
-- Enable quantity editing in the cart.  
-- Redesign cart as a live-update Bootstrap modal.  
+- ~~Implement saved wishlists.~~
+- ~~Enable quantity editing in the cart.~~
+- Implement the ability to save multiple wishlists.
+- Add aggregate reviews, displaying averages on product cards.
+- Redesign cart using AJAX to implement product updates without page reloads.
 
 ---
 
