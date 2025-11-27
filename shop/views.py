@@ -106,7 +106,7 @@ def view_wishlist(request):
     # Annotate each wishlist item with a computed line_total and sort by it descending
     wishlist_items = Wishlist_Item.objects.filter(wishlist=wishlist).annotate(
         line_total=ExpressionWrapper(
-            F('product__price') * F('quantity'),
+            F('product__price'),
             output_field=DecimalField(max_digits=12, decimal_places=2)
         )
     ).order_by('-line_total')
@@ -161,6 +161,19 @@ def save_cart_to_wishlist(request):
         product=item.product, wishlist=wishlist)
         # ensure saved (get_or_create already saved when created)
         wishlist_item.save()
+        item.delete()
+    return redirect('view_wishlist')
+
+
+def clear_wishlist(request):
+    """
+    Remove all items from the current user's wishlist.
+    Redirects to the wishlist view.
+    """
+    wishlist, created = Wishlist.objects.get_or_create(user=request.user)
+
+    wishlist_items = Wishlist_Item.objects.filter(wishlist=wishlist)
+    for item in wishlist_items:
         item.delete()
     return redirect('view_wishlist')
 

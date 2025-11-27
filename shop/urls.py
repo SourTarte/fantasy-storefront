@@ -35,6 +35,10 @@ urlpatterns = [
         views.remove_from_wishlist,
         name='remove_from_wishlist'),
     path(
+        'wishlist/clear/',
+        views.clear_wishlist,
+        name='clear_wishlist'),
+    path(
         'save_cart_to_wishlist/',
         views.save_cart_to_wishlist,
         name='save_cart_to_wishlist'),

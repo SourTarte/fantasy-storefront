@@ -11,51 +11,73 @@
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-10">
 
-                    <!-- Wart Header with sort option -->
+                    <!-- Wishlist Header with sort option -->
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <h3 class="fw-normal mb-0">{{user}}'s Wishlist</h3>
                         <div>
                             <p class="mb-0">
                                 <span class="text-muted">Sort by:</span>
-                                <a href="#!" class="text-body">price <i class="fas fa-angle-down mt-1"></i></a>
+                                <!-- Add a single-button sort link that toggles ascending/descending -->
+                                <a href="#" id="sortPriceLink" class="text-body">price
+                                    <i class="fas fa-angle-down mt-1 ms-1" id="sortPriceIcon" aria-hidden="true"></i>
+                                </a>
                             </p>
                         </div>
                     </div>
 
-                    <!-- Loop through each item in the wishlist -->
-                    {% for item in wishlist_items %}
-                    <div class="card rounded-3 mb-4">
-                        <div class="card-body p-4">
-                            <div class="row d-flex justify-content-between align-items-center">
-                                <!-- Product image -->
-                                <div class="col-md-2 col-lg-2 col-xl-2">
-                                    <img src="{{ item.product.main_image.url }}"
-                                         class="img-thumbnail mt-3 rounded-3"
-                                         alt="{{ item.product.product_name }}">
-                                </div>
-                                <!-- Product name -->
-                                <div class="col-md-3 col-lg-3 col-xl-3">
-                                    <p class="lead fw-normal mb-2">{{ item.product.product_name }}</p>
-                                </div>
+                    <!-- Container for wishlist items so JS can reorder them -->
+                    <div id="wishlist-items-list">
+                        <!-- Loop through each item in the wishlist -->
+                        {% for item in wishlist_items %}
+                        <div class="card rounded-3 mb-4 wishlist-item" data-price="{{ item.product.price }}">
+                            <div class="card-body p-4">
+                                <div class="row d-flex justify-content-between align-items-center">
+                                    <!-- Product image -->
+                                    <div class="col-md-2 col-lg-2 col-xl-2">
+                                        <img src="{{ item.product.main_image.url }}"
+                                             class="img-thumbnail mt-3 rounded-3"
+                                             alt="{{ item.product.product_name }}">
+                                    </div>
+                                    <!-- Product name -->
+                                    <div class="col-md-3 col-lg-3 col-xl-3">
+                                        <p class="lead fw-normal mb-2">{{ item.product.product_name }}</p>
+                                    </div>
+                                    <!-- Product price -->
+                                    <div class="col-md-3 col-lg-2 col-xl-2">
+                                        <h5 class="mb-0">{{ item.product.price }} GP</h5>
+                                    </div>
+                                    <div class="col-md-3 col-lg-2 col-xl-2 mt-3 mt-md-0">
+                                        <!-- Add to Cart button -->
+                                        <a class="btn btn-primary" role="button" aria-current="page" href="{% url 'add_to_cart' item.product.id %}">Add to Cart</a>
+                                    </div>
 
-                                <!-- Product price -->
-                                <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                    <h5 class="mb-0">{{ item.product.price }} GP</h5>
+                                    <!-- Remove item -->
+                                    <div class="col-md-2 col-lg-2 col-xl-2 text-end">
+                                        <a href="{% url 'remove_from_wishlist' item.id %}" class="text-danger">
+                                            <i class="fas fa-trash fa-lg"></i>
+                                        </a>
+                                    </div>
                                 </div>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <!-- Message if wishlist is empty -->
+                        <p>Your wishlist is empty.</p>
+                        {% endfor %}
+                    </div>
 
-                                <!-- Remove item -->
-                                <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                    <a href="{% url 'remove_from_wishlist' item.id %}" class="text-danger">
-                                        <i class="fas fa-trash fa-lg"></i>
-                                    </a>
+                    <!-- Wishlist actions -->
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="row row-cols-1 row-cols-md-auto justify-content-evenly">
+                                        <a class="btn btn-secondary btn-block m-1" aria-current="page" href="{% url 'clear_wishlist' %}">Clear Wishlist</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    {% empty %}
-                    <!-- Message if wishlist is empty -->
-                    <p>This wishlist is empty.</p>
-                    {% endfor %}
                 </div> <!-- /.col-10 -->
             </div> <!-- /.row -->
         </div> <!-- /.container -->
@@ -63,6 +85,47 @@
 </section>
 
 {% endblock content %}
+
 {% block extras %}
-<script src="{% static 'js/wishlist.js' %}"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const sortLink = document.getElementById("sortPriceLink");
+        const sortIcon = document.getElementById("sortPriceIcon");
+        const itemsContainer = document.getElementById("wishlist-items-list");
+        // state: true => ascending, false => descending
+        let ascending = false;
+
+        function parseItemPrice(cardEl) {
+            return cardEl ? (parseFloat(cardEl.dataset.price) || 0) : 0;
+        }
+
+        function sortWishlistItems(asc) {
+            if (!itemsContainer) return;
+            const items = Array.from(itemsContainer.querySelectorAll(".wishlist-item"));
+            items.sort((a, b) => {
+                const pa = parseItemPrice(a);
+                const pb = parseItemPrice(b);
+                return asc ? pa - pb : pb - pa;
+            });
+            items.forEach((it) => itemsContainer.appendChild(it));
+        }
+
+        if (sortLink) {
+            sortLink.addEventListener("click", (ev) => {
+                ev.preventDefault();
+                ascending = !ascending;
+                sortWishlistItems(ascending);
+                if (sortIcon) {
+                    if (ascending) {
+                        sortIcon.classList.remove("fa-angle-down");
+                        sortIcon.classList.add("fa-angle-up");
+                    } else {
+                        sortIcon.classList.remove("fa-angle-up");
+                        sortIcon.classList.add("fa-angle-down");
+                    }
+                }
+            });
+        }
+    });
+</script>
 {% endblock extras %}
