@@ -4,6 +4,23 @@
 
 _The Dragon’s Hoard Barmoury_ is a simulated fantasy-themed digital storefront built with Django. It demonstrates a complete e-commerce experience with user authentication, product listings, reviews, and a rudimentary cart system. This project was created as a full-stack capstone to showcase minimum viable product functionality for an e-commerce site while integrating responsive design and accessible UX principles.
 
+## Contents
+- [🐉 The Dragon’s Hoard Barmoury](#-the-dragons-hoard-barmoury)
+- [📋 Project Overview](#-project-overview)
+- [⚙️ Features and Technical Stack](#️-features-and-technical-stack)
+- [💻 Installation](#-installation)
+- [🗄️ Data Models & Business Logic](#️-data-models--business-logic)
+- [🔐 Authentication & Authorization](#-authentication--authorization)
+- [🧪 Testing](#-testing)
+- [☁️ Deployment](#️-deployment)
+- [🤖 AI-Augmented Development](#-ai-augmented-development)
+- [🚀 Agile Planning & UX Design](#-agile-planning--ux-design)
+- [💬 Reflections](#-reflections)
+- [🎨 3D Model & Image Credits](#-3d-model--image-credits)
+- [🧾 License](#-license)
+- [🐍 Code Style](#-code-style)
+
+
 ---
 ## 📋 Project Overview
 The project explores the idea of “what if a fantasy shopkeeper had a website?” Users can browse products, submit reviews, and interact with a simple cart system. The project uses Django's default User model, model forms, and custom apps for products, reviews, and cart items. The cart persists across sessions and allows users to clear items or view a total calculation. Although there are quantity buttons and an "Order Now" feature, these are currently rudimentary placeholders, with "Order Now" clearing the cart and returning the user to the home page.
